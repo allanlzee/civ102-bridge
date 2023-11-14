@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt 
 from scipy.integrate import trapz
 
-
 # Initialize Parameters 
 L = 1200    # Length of Bridge 
 n = 1200    # Discretize into 1 mm segments 
