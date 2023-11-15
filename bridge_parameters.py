@@ -4,8 +4,8 @@
 # bft:  Cross Section Width (mm)
 # tft:  Cross Section Thickness/Height (mm)
 param = [[0.635, 80, 1.27], 
-         [37.5, 1.27, 75],
-         [37.5, 1.27, 75],
+         [37.5, 1.27, 72.46],
+         [37.5, 1.27, 72.46],
          [74.365, 6.27, 1.27],
          [74.365, 6.27, 1.27],
          [75.635, 100, 1.27]
@@ -48,7 +48,22 @@ def second_moment_of_area(param) -> float:
     return I
 
 
+def first_moment_of_area_centroidal_axis() -> float: 
+    # Take shaded area from bottom of cross section to centroidal axis. 
+    cent_axis = centroidal_axis(param)
+    
+    first_moment_of_area = 0
 
+    # Keep track of the last cross section's height. 
+    # This will indicate which cross sections are not fully within the 
+    # first moment of area calculation. 
+
+    last_height = 0
+    for cross_section in param: 
+        # Check if the cross sections height is below the centroidal axis. 
+        height = cross_section[0] 
+        
+        
 
 
 if __name__ == "__main__":

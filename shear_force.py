@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt 
+from scipy.integrate import trapz
 import copy
 
 # Initialize Parameters 
@@ -28,7 +29,7 @@ BMDi = []
 # -52: last wheel on left pin support 
 # 84: train centered in middle 
 # 292: first wheel on right pin support 
-start_locations = [-52, 120, 292]
+start_locations = [0, 120, 240]
 
 left_sfd, middle_sfd, right_sfd = [0] * (n + 1), [0] * (n + 1), [0] * (n + 1)
 
@@ -51,30 +52,16 @@ def calculate_sfd():
             wheel_moments_left_pin += wheel_locations[wheel] * P_train[wheel]   # Nmm
     
         # Sum of moments (0) = -(Train Moment) + Ry x 1200
-        left_pin_reaction = wheel_moments_left_pin / L   # N 
+        right_pin_reaction = wheel_moments_left_pin / L   # N 
         
         # Sum of vertical forces.
-        right_pin_reaction = P - left_pin_reaction    # N
+        left_pin_reaction = P - right_pin_reaction    # N
 
-        # Iterate through each dissection of the bridge. 
+        shear_force = left_pin_reaction
         for cut_position in range(n + 1): 
-            shear_force = 0
-
-            # Add left pin reaction force. 
-            if cut_position >= 1: 
-                shear_force += left_pin_reaction 
-
-            # Add right pin reaction force 
-            if cut_position >= L:
-                shear_force += right_pin_reaction
-
-            # Add forces applied by the wheels. 
             for wheel in range(len(wheel_locations)):
-                if wheel_locations[wheel] <= cut_position: 
+                if wheel_locations[wheel] == cut_position: 
                     shear_force -= P_train[wheel]
-
-            if cut_position == 0: 
-                shear_force = 0
 
             match start: 
                 case 0: 
@@ -86,25 +73,13 @@ def calculate_sfd():
                 case 2: 
                     right_sfd[cut_position] = shear_force 
 
+        shear_force += right_pin_reaction
+
     return [left_sfd, middle_sfd, right_sfd]
-
-
-def sfd_envelope(): 
-    shear_force_diagrams = calculate_sfd() 
-
-    left_max_shear = max(max(shear_force_diagrams[0]), abs(min(shear_force_diagrams[0])))
-    middle_max_shear = max(max(shear_force_diagrams[1]), abs(min(shear_force_diagrams[1]))) 
-    right_max_shear = max(max(shear_force_diagrams[2]), abs(min(shear_force_diagrams[2]))) 
-
-    return left_max_shear, middle_max_shear, right_max_shear
 
 
 if __name__ == "__main__":
     shear_force_diagrams = calculate_sfd()
-
-    print("Shear Envelope (N)")
-    print("-" * len("Shear Envelope (N)"))
-    print(sfd_envelope())
 
     for sfd in range(len(shear_force_diagrams)): 
         leg_label = None
@@ -117,9 +92,9 @@ if __name__ == "__main__":
                 leg_label = "Right SFD"
             
         plt.plot(np.array(shear_force_diagrams[sfd]), label = leg_label)
-        
+    
     plt.plot(np.array([0] * (n + 1)), color="black")
-
+        
     plt.legend()
     plt.ylim(-500, 500)
     plt.xlabel("Bridge Distance (mm)")
