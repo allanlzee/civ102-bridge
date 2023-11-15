@@ -90,8 +90,22 @@ def calculate_sfd():
     return [left_sfd, middle_sfd, right_sfd]
 
 
+def sfd_envelope(): 
+    shear_force_diagrams = calculate_sfd() 
+
+    left_max_shear = max(max(shear_force_diagrams[0]), abs(min(shear_force_diagrams[0])))
+    middle_max_shear = max(max(shear_force_diagrams[1]), abs(min(shear_force_diagrams[1]))) 
+    right_max_shear = max(max(shear_force_diagrams[2]), abs(min(shear_force_diagrams[2]))) 
+
+    return left_max_shear, middle_max_shear, right_max_shear
+
+
 if __name__ == "__main__":
     shear_force_diagrams = calculate_sfd()
+
+    print("Shear Envelope (N)")
+    print("-" * len("Shear Envelope (N)"))
+    print(sfd_envelope())
 
     for sfd in range(len(shear_force_diagrams)): 
         leg_label = None

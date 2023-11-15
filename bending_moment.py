@@ -10,6 +10,7 @@ shear_force_diagrams = sfd.calculate_sfd()
 # Bending moment diagrams. 
 left_bmd, middle_bmd, right_bmd = [0] * (sfd.n + 1), [0] * (sfd.n + 1), [0] * (sfd.n + 1)
 
+
 def calculate_bmd(): 
     # Calculate bending moment diagrams for each SFD. 
     for i in range(sfd.n_train): 
@@ -19,6 +20,9 @@ def calculate_bmd():
         for x_end in range(sfd.n + 1): 
             subsection_sfd = sfd_values[:x_end]
             bending_moment = trapz(subsection_sfd)
+
+            if x_end == sfd.n: 
+                bending_moment = 0 
             
             match i: 
                 case 0:
@@ -31,9 +35,24 @@ def calculate_bmd():
     return [left_bmd, middle_bmd, right_bmd]
 
 
+def bmd_envelope(): 
+    bending_moment_diagrams = calculate_bmd() 
+
+    left_max_moment = max(max(bending_moment_diagrams[0]), abs(min(bending_moment_diagrams[0])))
+    middle_max_moment = max(max(bending_moment_diagrams[1]), abs(min(bending_moment_diagrams[1]))) 
+    right_max_moment = max(max(bending_moment_diagrams[2]), abs(min(bending_moment_diagrams[2]))) 
+
+    return left_max_moment, middle_max_moment, right_max_moment
+
+
 if __name__ == "__main__": 
     bending_moment_diagrams = calculate_bmd() 
-    print(bending_moment_diagrams)
+    
+    # Note that all compressions will be given as positive.
+    # Refer to the bending moment diagrams to see which signs the moment has.
+    print("Moment Envelope (Nmm)")
+    print("-" * len("Moment Envelope (Nmm)"))
+    print(bmd_envelope())
     
     for bmd in range(len(bending_moment_diagrams)): 
         leg_label = None
