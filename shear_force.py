@@ -62,7 +62,7 @@ def calculate_sfd():
             shear_force = 0
 
             # Add left pin reaction force. 
-            if cut_position >= 0: 
+            if cut_position >= 1: 
                 shear_force += left_pin_reaction 
 
             # Add right pin reaction force 
@@ -73,6 +73,9 @@ def calculate_sfd():
             for wheel in range(len(wheel_locations)):
                 if wheel_locations[wheel] <= cut_position: 
                     shear_force -= P_train[wheel]
+
+            if cut_position == 0: 
+                shear_force = 0
 
             match start: 
                 case 0: 
@@ -101,9 +104,9 @@ if __name__ == "__main__":
                 leg_label = "Right SFD"
             
         plt.plot(np.array(shear_force_diagrams[sfd]), label = leg_label)
-    
-    plt.plot(np.array([0] * (n + 1)), color="black")
         
+    plt.plot(np.array([0] * (n + 1)), color="black")
+
     plt.legend()
     plt.ylim(-500, 500)
     plt.xlabel("Bridge Distance (mm)")
