@@ -76,7 +76,7 @@ left_start = []
 # Solve for SFD and BMD with the train at a single location. 
 # There will be three locations we want to the bridge on. 
 for position in range(n): 
-
+    pass
     
 
 
