@@ -35,14 +35,14 @@ print(len(BMDi))
 for i in range(n_train): 
     # Start location of train. 
     # Consider when train is fully on the bridge. 
-    for start_pos in range(n + 1):
+    for pos in range(n + 1):
         # Get indices of front wheel and back wheel. 
         front_wheel = 2 * i + 1 
         back_wheel = 2 * i
 
         # Get locations of front wheel and back wheel. 
-        front_wheel_pos = x_train[front_wheel] + start_pos 
-        back_wheel_pos = x_train[front_wheel] + start_pos
+        front_wheel_pos = x_train[front_wheel] + pos 
+        back_wheel_pos = x_train[front_wheel] + pos
 
         # Sum of moments at A equation to calculate right pin reaction force.
         # M = 0 = -(front wheel)(front wheel force) - (back wheel)(back wheel force) + (right pin)(1200)
@@ -57,14 +57,30 @@ for i in range(n_train):
         # Assume the self-weight of the bridge is negligible. 
         # Sum of forces y = 0 = -V + Ry + Ly - front wheel - back wheel 
         shear_force = right_pin_reaction_force - P_train[front_wheel] - P_train[back_wheel]
-        SFDi[i][start_pos] = shear_force
+        SFDi[i][pos] = shear_force
 
     # SFD = num. integral(w)
     # BMD = num.integral(SFD)
     # SFD = trapz(10)
     # BMD = trapz(SFD)
 
-print(SFDi[0])
+# Start Positions 
+# -52: last wheel on left pin support 
+# 84: train centered in middle 
+# 292: first wheel on right pin support 
+
+start_locations = [-52, 84, 292]
+
+left_start = []
+
+# Solve for SFD and BMD with the train at a single location. 
+# There will be three locations we want to the bridge on. 
+for position in range(n): 
+
+    
+
+
+
 
 SFD = 0    # SFD Envelope
 
