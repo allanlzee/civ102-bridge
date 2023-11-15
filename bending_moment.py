@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt 
 from scipy.integrate import trapz 
-import copy 
 import shear_force as sfd 
 
 # Shear force diagrams. 
