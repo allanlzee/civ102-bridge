@@ -13,7 +13,7 @@ param = [[0.635, 80, 1.27],
 
 y_bot = 0 
 y_top = 76.27
-
+glue_location = 73.73
 
 def centroidal_axis(param) -> float: 
     """Return the position of the centroidal axis relative to the
@@ -48,24 +48,39 @@ def second_moment_of_area(param) -> float:
     return I
 
 
-def first_moment_of_area_centroidal_axis() -> float: 
-    # Take shaded area from bottom of cross section to centroidal axis. 
-    cent_axis = centroidal_axis(param)
-    
+def calculate_first_moment_of_area(param, axis) -> float:     
     first_moment_of_area = 0
 
     # Keep track of the last cross section's height. 
     # This will indicate which cross sections are not fully within the 
     # first moment of area calculation. 
-
     last_height = 0
-    for cross_section in param: 
-        # Check if the cross sections height is below the centroidal axis. 
-        height = cross_section[0] 
-        
-        
+    temp_height = 0
+    last_centroid = 0
 
+    # Calculate shaded area.
+    for cross_section in param: 
+        # Be careful with duplicate sections. 
+        # If elements have the same centroid, they will have the same last height.
+        if cross_section[0] != last_centroid: 
+            last_height = temp_height
+
+        # Check if the cross sections height is below the centroidal axis. 
+        height = cross_section[2] + last_height 
+
+        if height <= axis:
+            first_moment_of_area += cross_section[1] * cross_section[2] 
+        else:
+            first_moment_of_area += cross_section[1] * max(0, axis - last_height)
+            
+        temp_height = height
+        last_centroid = cross_section[0]
+
+    return first_moment_of_area
+        
 
 if __name__ == "__main__":
     print("Centroidal Axis (mm): " + str(centroidal_axis(param)))
     print("Second Moment of Area (mm4): " + str(second_moment_of_area(param)))
+    print("First Moment of Area (Centroidal Axis to Bottom) [mm3]: " + str(calculate_first_moment_of_area(param, centroidal_axis(param))))
+    print("First Moment of Area (Glue to Centroidal Axis) [mm3]: " + str(calculate_first_moment_of_area(param, glue_location)))
