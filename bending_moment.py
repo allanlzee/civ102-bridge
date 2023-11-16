@@ -68,7 +68,7 @@ if __name__ == "__main__":
     plt.plot(np.array([0] * (sfd.n + 1)), color="black")
 
     plt.legend()
-    plt.ylim(200000, -200000)
+    plt.ylim(100000, 0)
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Moment (Nmm)")
     plt.title("Bending Moment Diagrams for Left, Middle, and Right Train Placements")

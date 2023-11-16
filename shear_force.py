@@ -1,35 +1,26 @@
 import numpy as np
 import matplotlib.pyplot as plt 
-from scipy.integrate import trapz
 import copy
 
-# Initialize Parameters 
+
+# PARAMETERS
+x_train = [52, 228, 392, 568, 732, 908]     # Train Load Locations (mm)
+start_locations = [0, 120, 240]
+P_train = [66, 66, 66, 66, 66, 66]          # Load Case 1
+# P_train = [66, 66, 66, 66, 90, 90]        # Load Case 2
+
 L = 1200    # Length of Bridge 
 n = 1200    # Discretize into 1 mm segments 
-P = 400     # Total Weight of Train [N]
-x = [] 
 
+x = [] 
 for i in range(1201): 
     x.append(i)
+x = np.array(x) 
 
-x = np.array(x)     # X Axis 
-
-# 1. SFD, BMD Under Train Loading 
-x_train = [52, 228, 392, 568, 732, 908]     # Train Load Locations (mm)
-P_train = [1, 1, 1, 1, 1, 1]                # Train Load Forces (N)
-
-for p in range(len(P_train)): 
-    P_train[p] *= P / 6 
-
+P = sum(P_train)
 n_train = 3     # Number of train locations 
 SFDi = []
 BMDi = [] 
-
-# Start Positions 
-# -52: last wheel on left pin support 
-# 84: train centered in middle 
-# 292: first wheel on right pin support 
-start_locations = [0, 120, 240]
 
 left_sfd, middle_sfd, right_sfd = [0] * (n + 1), [0] * (n + 1), [0] * (n + 1)
 
@@ -57,8 +48,10 @@ def calculate_sfd():
         # Sum of vertical forces.
         left_pin_reaction = P - right_pin_reaction    # N
 
+        # Initial shear force = left pin
         shear_force = left_pin_reaction
         for cut_position in range(n + 1): 
+            # If cur position is at wheel, drop down SFD by wheel force.
             for wheel in range(len(wheel_locations)):
                 if wheel_locations[wheel] == cut_position: 
                     shear_force -= P_train[wheel]
@@ -73,6 +66,7 @@ def calculate_sfd():
                 case 2: 
                     right_sfd[cut_position] = shear_force 
 
+        # Add right pin reaction in the end
         shear_force += right_pin_reaction
 
     return [left_sfd, middle_sfd, right_sfd]
@@ -96,7 +90,7 @@ if __name__ == "__main__":
     plt.plot(np.array([0] * (n + 1)), color="black")
         
     plt.legend()
-    plt.ylim(-500, 500)
+    plt.ylim(-300, 300)
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Shear Force (N)")
     plt.title("Shear Force Diagrams for Left, Middle, and Right Train Placements")
