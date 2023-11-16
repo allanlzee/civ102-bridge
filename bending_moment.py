@@ -37,9 +37,9 @@ def calculate_bmd():
 def bmd_envelope(): 
     bending_moment_diagrams = calculate_bmd() 
 
-    left_max_moment = max(max(bending_moment_diagrams[0]), abs(min(bending_moment_diagrams[0])))
-    middle_max_moment = max(max(bending_moment_diagrams[1]), abs(min(bending_moment_diagrams[1]))) 
-    right_max_moment = max(max(bending_moment_diagrams[2]), abs(min(bending_moment_diagrams[2]))) 
+    left_max_moment = max(bending_moment_diagrams[0])
+    middle_max_moment = max(bending_moment_diagrams[1]) 
+    right_max_moment = max(bending_moment_diagrams[2])
 
     return left_max_moment, middle_max_moment, right_max_moment
 
