@@ -15,6 +15,10 @@ y_bot = 0
 y_top = 76.27
 glue_location = 73.73
 
+# Beam Widths at Depths of Interest 
+centroidal_axis_width = 2 * 1.27
+glue_width = 6.27 * 2
+
 def centroidal_axis(param) -> float: 
     """Return the position of the centroidal axis relative to the
     bottom of the cross section in mm."""
