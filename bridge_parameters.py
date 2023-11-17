@@ -1,10 +1,9 @@
-import shear_force as sfd_
-
 # Define Bridge Parameters. 
 # xb, bft, tft 
 # xb:   Location of centroid, xb, of cross-section change (relative to bottom) (mm)
 # bft:  Cross Section Width (mm)
 # tft:  Cross Section Thickness/Height (mm)
+
 param = [[0.635, 80, 1.27], 
          [37.5, 1.27, 72.46],
          [37.5, 1.27, 72.46],

@@ -1,8 +1,5 @@
-import shear_force as sfd_
-import bending_moment as bmd_
 import bridge_parameters as bp_
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 # matboard params
