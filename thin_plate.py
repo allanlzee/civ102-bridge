@@ -13,7 +13,7 @@ def top_center():
     t = bp_.param[0][2]
     b = bp_.param[0][1]
 
-    return (k * np.pi() * E ) / (12*(1-poisson**2)) * (t/b)^2
+    return (k * np.pi * E ) / (12*(1-poisson**2)) * (t/b)**2
     
 def free_edge():
     global thickness, E, poisson
@@ -21,7 +21,7 @@ def free_edge():
     t = bp_.param[0][2]
     b = bp_.param[0][1]
 
-    return (k * np.pi() * E ) / (12*(1-poisson**2)) * (t/b)^2
+    return (k * np.pi * E ) / (12*(1-poisson**2)) * (t/b)**2
 
 def web():
     global thickness, E, poisson
@@ -29,16 +29,16 @@ def web():
     t = bp_.param[1][2]
     b = bp_.param[1][1]
 
-    return (k * np.pi() * E ) / (12*(1-poisson**2)) * (t/b)^2
+    return (k * np.pi * E ) / (12*(1-poisson**2)) * (t/b)**2
 
 def shear():
     global thickness, E, poisson
     k = 5
     t = bp_.param[0][2]
     h = bp_.param[0][1]
-    a = 1               # to be optimized
+    a = 50               # to be optimized
 
-    return (k * np.pi() * E ) / (12*(1-poisson**2)) * ((t/h)^2 + (t/a)^2)
+    return (k * np.pi * E ) / (12*(1-poisson**2)) * ((t/h)**2 + (t/a)**2)
 
 if __name__ == "__main__":
     print("Top Center (Mpa): " + str(top_center()))
