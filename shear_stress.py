@@ -9,7 +9,12 @@ max_shear_stress = [0, 0, 0]
 
 
 def axis_shear(glue_point: False): 
-    Q = bp_.calculate_first_moment_of_area(bp_.param, bp_.centroidal_axis(bp_.param))
+    Q = 0
+    if glue_point: 
+        Q = bp_.calculate_first_moment_of_area(bp_.param, bp_.glue_location, True)
+    else: 
+        Q = bp_.calculate_first_moment_of_area(bp_.param, bp_.centroidal_axis(bp_.param), False)
+    
     I = bp_.second_moment_of_area(bp_.param)
     b = 0
 

@@ -8,7 +8,7 @@ import numpy as np
 # Calculate applied stresses for moments using Navier's equation. 
 
 # Beam failure resulting from tension (bottom surface to centroidal axis). 
-def calculate_tensile_stress(bmds): 
+def calculate_tensile_stress(bmds) -> list: 
     left_tension, middle_tension, right_tension = [0] * (sfd_.n + 1), [0] * (sfd_.n + 1), [0] * (sfd_.n + 1)
 
     y = bp_.centroidal_axis(bp_.param)

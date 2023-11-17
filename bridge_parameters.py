@@ -1,3 +1,5 @@
+import shear_force as sfd_
+
 # Define Bridge Parameters. 
 # xb, bft, tft 
 # xb:   Location of centroid, xb, of cross-section change (relative to bottom) (mm)
@@ -13,7 +15,7 @@ param = [[0.635, 80, 1.27],
 
 y_bot = 0 
 y_top = 76.27
-glue_location = 73.73
+glue_location = 75
 
 # Beam Widths at Depths of Interest 
 centroidal_axis_width = 2 * 1.27
@@ -52,7 +54,24 @@ def second_moment_of_area(param) -> float:
     return I
 
 
-def calculate_first_moment_of_area(param, axis) -> float:     
+# First Moment of Area Parameters for Glue. 
+# Take relative position from the top surface of the bridge. 
+param_glue = [[0.635, 80, 1.27], 
+              [37.5, 1.27, 72.46],
+              [37.5, 1.27, 72.46],
+              [74.365, 6.27, 1.27],
+              [74.365, 6.27, 1.27]
+             ]
+
+# First Moment of Area Parameters for Centroidal Axis. 
+# Take relative position from the bottom surface of the bridge. 
+param_centroidal_axis = [[1.27 / 2, 80, 1.27], 
+                         [1.27 + (centroidal_axis(param) - 1.27) / 2, 1.27, centroidal_axis(param) - 1.27], 
+                         [1.27 + (centroidal_axis(param) - 1.27) / 2, 1.27, centroidal_axis(param) - 1.27]
+                        ]
+
+
+def calculate_first_moment_of_area(param, axis, glue=False) -> float:     
     first_moment_of_area = 0
 
     # Keep track of the last cross section's height. 
@@ -80,11 +99,19 @@ def calculate_first_moment_of_area(param, axis) -> float:
         temp_height = height
         last_centroid = cross_section[0]
 
+    # Multiply by distance between centroid of shaded area to centroid of entire section. 
+    if glue: 
+        shaded_centroid = centroidal_axis(param_glue) 
+        first_moment_of_area *= abs(shaded_centroid - centroidal_axis(param))
+    else: 
+        shaded_centroid = centroidal_axis(param_centroidal_axis)
+        first_moment_of_area *= abs(shaded_centroid - centroidal_axis(param))
+
     return first_moment_of_area
         
 
 if __name__ == "__main__":
     print("Centroidal Axis (mm): " + str(centroidal_axis(param)))
     print("Second Moment of Area (mm4): " + str(second_moment_of_area(param)))
-    print("First Moment of Area (Centroidal Axis to Bottom) [mm3]: " + str(calculate_first_moment_of_area(param, centroidal_axis(param))))
-    print("First Moment of Area (Glue to Centroidal Axis) [mm3]: " + str(calculate_first_moment_of_area(param, glue_location)))
+    print("First Moment of Area (Centroidal Axis to Bottom) [mm3]: " + str(calculate_first_moment_of_area(param, centroidal_axis(param), False)))
+    print("First Moment of Area (Glue to Centroidal Axis) [mm3]: " + str(calculate_first_moment_of_area(param, glue_location, True)))
