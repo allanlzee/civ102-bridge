@@ -16,7 +16,7 @@ def calculate_tensile_stress(bmds) -> list:
 
     for i in range(len(bmds)): 
         for pos in range(sfd_.n + 1): 
-            moment = bmds[i][pos] * y / I
+            moment = round(bmds[i][pos] * y / I, 3)
             
             match i: 
                 case 0: 

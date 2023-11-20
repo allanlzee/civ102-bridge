@@ -24,7 +24,7 @@ def axis_shear(glue_point: False):
         b = bp_.centroidal_axis_width
 
     for i in range(len(max_shear_stress)):
-        max_shear_stress[i] = (max_shear_forces[i] * Q) / (I * b)
+        max_shear_stress[i] = round((max_shear_forces[i] * Q) / (I * b), 3)
 
     return max_shear_stress
 
