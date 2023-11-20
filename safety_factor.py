@@ -3,7 +3,6 @@ import bending_moment as bmd_
 import applied_tension as at_
 import applied_compression as ac_
 import shear_stress as ss_
-import main as m_
 
 # Tensile Stress [MPa]
 tensile_stress = at_.calculate_tensile_stress(bmd_.calculate_bmd())
@@ -43,4 +42,8 @@ GLUE_SHEAR_STRENGTH = 2
 fos_glue = GLUE_SHEAR_STRENGTH / max(max_glue_left, max_glue_middle, max_glue_right)
 
 if __name__ == "__main__":
-    m_.FOS()
+    print("Tensile F.O.S.: " + str(fos_tensile))
+    print("Compressive F.O.S.: " + str(fos_compressive))
+    print("Matboard Shear F.O.S.: " + str(fos_shear))
+    print("Glue Shear F.O.S.: " + str(fos_glue))
+    
