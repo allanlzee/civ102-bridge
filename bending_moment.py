@@ -18,7 +18,7 @@ def calculate_bmd():
         # Iterate through 1 mm segments of the bridge. 
         for x_end in range(sfd.n + 1): 
             subsection_sfd = sfd_values[:x_end]
-            bending_moment = trapz(subsection_sfd)
+            bending_moment = round(trapz(subsection_sfd), 3)
 
             if x_end == sfd.n: 
                 bending_moment = 0 

@@ -13,6 +13,8 @@ max_tensile_right = max(tensile_stress[2])
 MATBOARD_TENSILE_STRENGTH = 30 
 fos_tensile = MATBOARD_TENSILE_STRENGTH / max(max_tensile_left, max_tensile_middle, max_tensile_right)
 
+fos_tensile = round(fos_tensile, 3)
+
 # Compressive Stress [MPa]
 compressive_stress = ac_.calculate_compressive_stress(bmd_.calculate_bmd())
 max_compressive_left = max(compressive_stress[0])
@@ -21,6 +23,7 @@ max_compressive_right = max(compressive_stress[2])
 
 MATBOARD_COMPRESSIVE_STRENGTH = 6
 fos_compressive = 1 / (MATBOARD_COMPRESSIVE_STRENGTH / max(max_compressive_left, max_compressive_middle, max_compressive_right))
+fos_compressive = round(fos_compressive, 3)
 
 # Shear Stress [MPa]
 axis_shear = ss_.axis_shear(False)
@@ -30,6 +33,7 @@ max_shear_right = axis_shear[2]
 
 MATBOARD_SHEAR_STRENGTH = 4 
 fos_shear = MATBOARD_SHEAR_STRENGTH / max(max_shear_left, max_shear_middle, max_shear_right)
+fos_shear = round(fos_shear, 3)
 
 # Glue Shear Stress [MPa]
 glue_shear = ss_.axis_shear(True)
@@ -40,10 +44,4 @@ max_glue_right = axis_shear[2]
 # Assume glue/contact cement is fully dried.
 GLUE_SHEAR_STRENGTH = 2 
 fos_glue = GLUE_SHEAR_STRENGTH / max(max_glue_left, max_glue_middle, max_glue_right)
-
-if __name__ == "__main__":
-    print("Tensile F.O.S.: " + str(fos_tensile))
-    print("Compressive F.O.S.: " + str(fos_compressive))
-    print("Matboard Shear F.O.S.: " + str(fos_shear))
-    print("Glue Shear F.O.S.: " + str(fos_glue))
-    
+fos_glue = round(fos_glue, 3)

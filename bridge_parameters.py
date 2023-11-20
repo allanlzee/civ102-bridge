@@ -89,7 +89,7 @@ def centroidal_axis(param) -> float:
         total_area += area
         centroid_area += area * cross_section[0]
 
-    return centroid_area / total_area
+    return round(centroid_area / total_area, 3)
 
 
 def second_moment_of_area(param) -> float: 
@@ -107,7 +107,7 @@ def second_moment_of_area(param) -> float:
 
         I += rect_moment + parallel_moment 
 
-    return I
+    return round(I, 3)
 
 # First Moment of Area Parameters for Centroidal Axis. 
 # Take relative position from the bottom surface of the bridge. 
@@ -153,11 +153,4 @@ def calculate_first_moment_of_area(param, axis, glue=False) -> float:
         shaded_centroid = centroidal_axis(param_centroidal_axis)
         first_moment_of_area *= abs(shaded_centroid - centroidal_axis(param))
 
-    return first_moment_of_area
-        
-
-if __name__ == "__main__":
-    print("Centroidal Axis (mm): " + str(centroidal_axis(param)))
-    print("Second Moment of Area (mm4): " + str(second_moment_of_area(param)))
-    print("First Moment of Area (Centroidal Axis to Bottom) [mm3]: " + str(calculate_first_moment_of_area(param, centroidal_axis(param), False)))
-    print("First Moment of Area (Glue to Centroidal Axis) [mm3]: " + str(calculate_first_moment_of_area(param, glue_location, True)))
+    return round(first_moment_of_area, 3)

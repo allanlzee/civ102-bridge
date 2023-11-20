@@ -17,7 +17,7 @@ def center():
 
     # print(k, t, b)
 
-    return (k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2
+    return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
     
 def free_edge():
     global thickness, E, poisson
@@ -28,7 +28,7 @@ def free_edge():
 
     # print(k, t, b)
 
-    return (k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2
+    return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
 
 def web():
     global thickness, E, poisson
@@ -39,7 +39,7 @@ def web():
 
     # print(k, t, b)
 
-    return (k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2
+    return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
 
 def shear():
     global thickness, E, poisson
@@ -51,11 +51,4 @@ def shear():
 
     # print(k, t, h, a)
 
-    return (k * np.pi**2 * E ) / (12*(1-poisson**2)) * ((t/h)**2 + (t/a)**2)
-
-if __name__ == "__main__":
-    print("Bottom Center (MPa): " + str(center()))
-    print("Overhangs (MPa): " + str(free_edge()))
-    print("Web (MPa): " + str(web()))
-    print("Top Center (MPa): " + str(shear()))
-
+    return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * ((t/h)**2 + (t/a)**2), 3)
