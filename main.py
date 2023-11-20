@@ -157,8 +157,8 @@ if __name__ == "__main__":
     # tensile_stress(True)
 
     shear_force(False)
-    bending_moment(True)
-    compressive_stress(True)
+    bending_moment(False)
+    compressive_stress(False)
     tensile_stress(False)
 
     shear_stress()
