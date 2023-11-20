@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def compressive_stress ():
+    print("\nCOMPRESSIVE STRESS")
     compressive_stresses = ac_.calculate_compressive_stress(bmd_.calculate_bmd())
 
     for stress in range(len(compressive_stresses)):
@@ -35,16 +36,21 @@ def compressive_stress ():
     plt.show()
 
 def shear_stress (): 
+    print("\nSHEAR STRESS")
     print("Centroidal Axis [MPa]: " + str(ss_.axis_shear(False)))
     print("Glue Point [MPa]: " + str(ss_.axis_shear(True))) 
 
 def thin_plate():
+    print("\nTHIN PLATE")
     print("Bottom Center (MPa): " + str(tp_.center()))
     print("Overhangs (MPa): " + str(tp_.free_edge()))
     print("Web (MPa): " + str(tp_.web()))
     print("Top Center (MPa): " + str(tp_.shear()))
 
 def shear_force ():
+    print("\nSHEAR FORCE")
+    print("Shear force envolope:", sfd_.sfd_envelope())
+
     shear_force_diagrams = sfd_.calculate_sfd()
 
     for sfd in range(len(shear_force_diagrams)): 
@@ -69,6 +75,7 @@ def shear_force ():
     plt.show()
 
 def tensile_stress():
+    print("\nTENSILE STRESS")
     tensile_stresses = at_.calculate_tensile_stress(bmd_.calculate_bmd())
 
     for stress in range(len(tensile_stresses)):
@@ -93,13 +100,12 @@ def tensile_stress():
     plt.show()
 
 def bending_moment():
+    print("\nBENDING MOMENT")
     bending_moment_diagrams = bmd_.calculate_bmd() 
     
     # Note that all compressions will be given as positive.
     # Refer to the bending moment diagrams to see which signs the moment has.
-    print("Moment Envelope (Nmm)")
-    print("-" * len("Moment Envelope (Nmm)"))
-    print(bmd_.bmd_envelope())
+    print("Moment Envelope (Nmm):", bmd_.bmd_envelope())
     
     for bmd in range(len(bending_moment_diagrams)): 
         leg_label = None
@@ -123,24 +129,29 @@ def bending_moment():
     plt.show()
 
 def FOS ():
+    print("\nSAFETY FACTOR")
     print("Tensile FOS.: " + str(fos_.fos_tensile))
     print("Compressive FOS.: " + str(fos_.fos_compressive))
     print("Matboard Shear FOS.: " + str(fos_.fos_shear))
     print("Glue Shear FOS: " + str(fos_.fos_glue))
 
 def bridge_parameters():
+    print("\nBRIDGE PARAMETERS")
     print("Centroidal Axis (mm): " + str(bp_.centroidal_axis(bp_.param)))
     print("Second Moment of Area (mm4): " + str(bp_.second_moment_of_area(bp_.param)))
     print("First Moment of Area (Centroidal Axis to Bottom) [mm3]: " + str(bp_.calculate_first_moment_of_area(bp_.param, bp_.centroidal_axis(bp_.param), False)))
     print("First Moment of Area (Glue to Centroidal Axis) [mm3]: " + str(bp_.calculate_first_moment_of_area(bp_.param, bp_.glue_location, True)))
 
 if __name__ == "__main__":
+    shear_force()
+    bending_moment()
+
     compressive_stress()
+    tensile_stress()
+
     shear_stress()
     thin_plate()
-    shear_force()
-    tensile_stress()
-    bending_moment()
-    FOS()
+
     bridge_parameters()
+    FOS()
 
