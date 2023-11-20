@@ -19,8 +19,42 @@ pg_0 = [[0.635, 80, 1.27],
         [74.365, 6.27, 1.27]
         ]
 
-param = p_0
-param_glue = pg_0
+# First Iteration: Adding matboard layer to the top to reduce compressive stress. 
+p_1 = [[0.635, 80, 1.27], 
+        [37.5, 1.27, 72.46],
+        [37.5, 1.27, 72.46],
+        [74.365, 6.27, 1.27],
+        [74.365, 6.27, 1.27],
+        [75.635, 100, 1.27],
+        [75.635 + 1.27, 100, 1.27],
+        ]
+
+pg_1 = [[0.635, 80, 1.27], 
+        [37.5, 1.27, 72.46],
+        [37.5, 1.27, 72.46],
+        [74.365, 6.27, 1.27],
+        [74.365, 6.27, 1.27]
+        ]
+
+
+# Second Iteration: Increase length of glue tabs. 
+p_2 = [[0.635, 80, 1.27], 
+        [37.5, 1.27, 72.46],
+        [37.5, 1.27, 72.46],
+        [74.365, 40, 1.27],
+        [74.365, 40, 1.27],
+        [75.635, 100, 1.27]
+        ]
+
+pg_2 = [[0.635, 80, 1.27], 
+        [37.5, 1.27, 72.46],
+        [37.5, 1.27, 72.46],
+        [74.365, 40, 1.27],
+        [74.365, 40, 1.27]
+        ]
+
+param = p_2
+param_glue = pg_2
 
 y_bot = 0 
 y_top = 76.27
@@ -123,7 +157,6 @@ def calculate_first_moment_of_area(param, axis, glue=False) -> float:
         
 
 if __name__ == "__main__":
-    print("Enough Matboard: " + str(enough_matboard(param)))
     print("Centroidal Axis (mm): " + str(centroidal_axis(param)))
     print("Second Moment of Area (mm4): " + str(second_moment_of_area(param)))
     print("First Moment of Area (Centroidal Axis to Bottom) [mm3]: " + str(calculate_first_moment_of_area(param, centroidal_axis(param), False)))
