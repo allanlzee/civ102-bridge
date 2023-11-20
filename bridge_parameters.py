@@ -1,3 +1,5 @@
+import main as m_
+
 # Define Bridge Parameters. 
 # xb, bft, tft 
 # xb:   Location of centroid, xb, of cross-section change (relative to bottom) (mm)
@@ -110,7 +112,4 @@ def calculate_first_moment_of_area(param, axis, glue=False) -> float:
         
 
 if __name__ == "__main__":
-    print("Centroidal Axis (mm): " + str(centroidal_axis(param)))
-    print("Second Moment of Area (mm4): " + str(second_moment_of_area(param)))
-    print("First Moment of Area (Centroidal Axis to Bottom) [mm3]: " + str(calculate_first_moment_of_area(param, centroidal_axis(param), False)))
-    print("First Moment of Area (Glue to Centroidal Axis) [mm3]: " + str(calculate_first_moment_of_area(param, glue_location, True)))
+    m_.bridge_parameters()

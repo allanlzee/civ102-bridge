@@ -1,9 +1,6 @@
 import shear_force as sfd_
-import bending_moment as bmd_
 import bridge_parameters as bp_
-
-import matplotlib.pyplot as plt
-import numpy as np
+import main as m_
 
 # Calculate applied stresses for moments using Navier's equation. 
 
@@ -33,25 +30,4 @@ def calculate_tensile_stress(bmds) -> list:
 # Beam failure resulting from compression (centroidal axis to top surface). 
 
 if __name__ == "__main__":
-    tensile_stresses = calculate_tensile_stress(bmd_.calculate_bmd())
-
-    for stress in range(len(tensile_stresses)):
-        leg_label = None 
-
-        match stress: 
-            case 0: 
-                leg_label = "Left Stress"
-            case 1: 
-                leg_label = "Middle Stress"
-            case 2: 
-                leg_label = "Right Stress"
-
-        plt.plot(np.array(tensile_stresses[stress]), label = leg_label)
-
-    print("Maximum Tensile Stress [MPa]: " + str(max(tensile_stresses[1])))
-
-    plt.legend()
-    plt.xlabel("Bridge Distance (mm)")
-    plt.ylabel("Tensile Stress (MPa)")
-    plt.title("Tensile Stress Diagrams for Left, Middle, and Right Train Placements")
-    plt.show()
+    m_.tensile_stress()

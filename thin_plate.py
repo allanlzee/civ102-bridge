@@ -1,5 +1,5 @@
 import bridge_parameters as bp_
-
+import main as m_
 import numpy as np
 
 # matboard params
@@ -59,3 +59,4 @@ if __name__ == "__main__":
     print("Web (MPa): " + str(web()))
     print("Shear (MPa): " + str(shear()))
 
+    m_.thin_plate()
