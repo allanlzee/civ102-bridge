@@ -1,5 +1,6 @@
 import shear_force as sfd_
 import bridge_parameters as bp_
+import main as m_
 
 # Calculate maximum shear stress from SFD
 # Txy = VQ / Ib
@@ -30,5 +31,4 @@ def axis_shear(glue_point: False):
 
 
 if __name__ == "__main__": 
-    print("Centroidal Axis [MPa]: " + str(axis_shear(False)))
-    print("Glue Point [MPa]: " + str(axis_shear(True))) 
+    m_.shear_stress()

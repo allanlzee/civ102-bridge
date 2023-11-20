@@ -135,12 +135,12 @@ def bridge_parameters():
     print("First Moment of Area (Glue to Centroidal Axis) [mm3]: " + str(bp_.calculate_first_moment_of_area(bp_.param, bp_.glue_location, True)))
 
 if __name__ == "__main__":
-    # compressive_stress()
-    # shear_stress()
-    # thin_plate()
-    # shear_force()
-    # tensile_stress()
-    # bending_moment()
-    # FOS()
+    compressive_stress()
+    shear_stress()
+    thin_plate()
+    shear_force()
+    tensile_stress()
+    bending_moment()
+    FOS()
     bridge_parameters()
 

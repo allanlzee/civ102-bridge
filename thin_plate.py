@@ -1,5 +1,5 @@
 import bridge_parameters as bp_
-
+import main as m_
 import numpy as np
 
 # matboard params
@@ -54,8 +54,4 @@ def shear():
     return (k * np.pi**2 * E ) / (12*(1-poisson**2)) * ((t/h)**2 + (t/a)**2)
 
 if __name__ == "__main__":
-    print("Bottom Center (MPa): " + str(center()))
-    print("Overhangs (MPa): " + str(free_edge()))
-    print("Web (MPa): " + str(web()))
-    print("Top Center (MPa): " + str(shear()))
-
+    m_.thin_plate()
