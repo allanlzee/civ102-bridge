@@ -20,7 +20,7 @@ max_compressive_middle = max(compressive_stress[1])
 max_compressive_right = max(compressive_stress[2])
 
 MATBOARD_COMPRESSIVE_STRENGTH = 6
-fos_compressive = MATBOARD_COMPRESSIVE_STRENGTH / max(max_compressive_left, max_compressive_middle, max_compressive_right)
+fos_compressive = 1 / (MATBOARD_COMPRESSIVE_STRENGTH / max(max_compressive_left, max_compressive_middle, max_compressive_right))
 
 # Shear Stress [MPa]
 axis_shear = ss_.axis_shear(False)

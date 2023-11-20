@@ -15,7 +15,7 @@ def center():
     t = bp_.param[5][2]
     b = bp_.param[5][1] - 2 * flange_width
 
-    print(k, t, b)
+    # print(k, t, b)
 
     return (k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2
     
@@ -26,7 +26,7 @@ def free_edge():
     t = bp_.param[5][2]
     b = flange_width
 
-    print(k, t, b)
+    # print(k, t, b)
 
     return (k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2
 
@@ -37,7 +37,7 @@ def web():
     t = bp_.param[1][1]
     b = bp_.param[1][2]
 
-    print(k, t, b)
+    # print(k, t, b)
 
     return (k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2
 
@@ -49,7 +49,7 @@ def shear():
     h = bp_.param[5][1] - 2*flange_width
     a = 1200                      # to be optimized
 
-    print(k, t, h, a)
+    # print(k, t, h, a)
 
     return (k * np.pi**2 * E ) / (12*(1-poisson**2)) * ((t/h)**2 + (t/a)**2)
 

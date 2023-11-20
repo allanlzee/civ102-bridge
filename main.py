@@ -10,7 +10,7 @@ import safety_factor as fos_
 import matplotlib.pyplot as plt
 import numpy as np
 
-def compressive_stress ():
+def compressive_stress (plot):
     print("\nCOMPRESSIVE STRESS")
     compressive_stresses = ac_.calculate_compressive_stress(bmd_.calculate_bmd())
 
@@ -33,7 +33,9 @@ def compressive_stress ():
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Compressive Stress (MPa)")
     plt.title("Compressive Stress Diagrams for Left, Middle, and Right Train Placements")
-    plt.show()
+    
+    if plot:
+        plt.show()
 
 def shear_stress (): 
     print("\nSHEAR STRESS")
@@ -47,9 +49,9 @@ def thin_plate():
     print("Web (MPa): " + str(tp_.web()))
     print("Top Center (MPa): " + str(tp_.shear()))
 
-def shear_force ():
+def shear_force (plot):
     print("\nSHEAR FORCE")
-    print("Shear force envolope:", sfd_.sfd_envelope())
+    print("Shear force envolope (N):", sfd_.sfd_envelope())
 
     shear_force_diagrams = sfd_.calculate_sfd()
 
@@ -72,9 +74,10 @@ def shear_force ():
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Shear Force (N)")
     plt.title("Shear Force Diagrams for Left, Middle, and Right Train Placements")
-    plt.show()
+    if plot:
+        plt.show()
 
-def tensile_stress():
+def tensile_stress(plot):
     print("\nTENSILE STRESS")
     tensile_stresses = at_.calculate_tensile_stress(bmd_.calculate_bmd())
 
@@ -97,9 +100,10 @@ def tensile_stress():
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Tensile Stress (MPa)")
     plt.title("Tensile Stress Diagrams for Left, Middle, and Right Train Placements")
-    plt.show()
+    if plot:
+        plt.show()
 
-def bending_moment():
+def bending_moment(plot):
     print("\nBENDING MOMENT")
     bending_moment_diagrams = bmd_.calculate_bmd() 
     
@@ -126,7 +130,8 @@ def bending_moment():
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Moment (Nmm)")
     plt.title("Bending Moment Diagrams for Left, Middle, and Right Train Placements")
-    plt.show()
+    if plot:
+        plt.show()
 
 def FOS ():
     print("\nSAFETY FACTOR")
@@ -143,11 +148,15 @@ def bridge_parameters():
     print("First Moment of Area (Glue to Centroidal Axis) [mm3]: " + str(bp_.calculate_first_moment_of_area(bp_.param, bp_.glue_location, True)))
 
 if __name__ == "__main__":
-    shear_force()
-    bending_moment()
+    # shear_force(True)
+    # bending_moment(True)
+    # compressive_stress(True)
+    # tensile_stress(True)
 
-    compressive_stress()
-    tensile_stress()
+    shear_force(False)
+    bending_moment(False)
+    compressive_stress(False)
+    tensile_stress(False)
 
     shear_stress()
     thin_plate()

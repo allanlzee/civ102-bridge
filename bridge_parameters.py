@@ -4,13 +4,23 @@
 # bft:  Cross Section Width (mm)
 # tft:  Cross Section Thickness/Height (mm)
 
-param = [[0.635, 80, 1.27], 
-         [37.5, 1.27, 72.46],
-         [37.5, 1.27, 72.46],
-         [74.365, 6.27, 1.27],
-         [74.365, 6.27, 1.27],
-         [75.635, 100, 1.27]
+p_0 = [[0.635, 80, 1.27], 
+        [37.5, 1.27, 72.46],
+        [37.5, 1.27, 72.46],
+        [74.365, 6.27, 1.27],
+        [74.365, 6.27, 1.27],
+        [75.635, 100, 1.27]
         ]
+
+pg_0 = [[0.635, 80, 1.27], 
+        [37.5, 1.27, 72.46],
+        [37.5, 1.27, 72.46],
+        [74.365, 6.27, 1.27],
+        [74.365, 6.27, 1.27]
+        ]
+
+param = p_0
+param_glue = pg_0
 
 y_bot = 0 
 y_top = 76.27
@@ -51,16 +61,6 @@ def second_moment_of_area(param) -> float:
         I += rect_moment + parallel_moment 
 
     return I
-
-
-# First Moment of Area Parameters for Glue. 
-# Take relative position from the top surface of the bridge. 
-param_glue = [[0.635, 80, 1.27], 
-              [37.5, 1.27, 72.46],
-              [37.5, 1.27, 72.46],
-              [74.365, 6.27, 1.27],
-              [74.365, 6.27, 1.27]
-             ]
 
 # First Moment of Area Parameters for Centroidal Axis. 
 # Take relative position from the bottom surface of the bridge. 
