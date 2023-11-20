@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt 
 import copy
 
-
 # PARAMETERS
 x_train = [52, 228, 392, 568, 732, 908]     # Train Load Locations (mm)
 start_locations = [0, 120, 240]
