@@ -54,9 +54,10 @@ def shear():
     return (k * np.pi**2 * E ) / (12*(1-poisson**2)) * ((t/h)**2 + (t/a)**2)
 
 if __name__ == "__main__":
-    print("Top Center (MPa): " + str(top_center()))
+    """print("Top Center (MPa): " + str(top_center()))
     print("Free Edge (MPa): " + str(free_edge()))
     print("Web (MPa): " + str(web()))
     print("Shear (MPa): " + str(shear()))
 
-    m_.thin_plate()
+    m_.thin_plate()"""
+    pass
