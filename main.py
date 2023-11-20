@@ -149,7 +149,7 @@ def bridge_parameters():
     print("Q (Glue to Centroidal Axis) [mm3]: " + str(bp_.calculate_first_moment_of_area(bp_.param, bp_.glue_location, True)))
 
 if __name__ == "__main__":
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    print("\n" * 10)
 
     # shear_force(True)
     # bending_moment(True)

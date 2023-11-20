@@ -5,8 +5,8 @@ import copy
 # PARAMETERS
 x_train = [52, 228, 392, 568, 732, 908]     # Train Load Locations (mm)
 start_locations = [0, 120, 240]
-P_train = [66, 66, 66, 66, 66, 66]          # Load Case 1
-# P_train = [66, 66, 66, 66, 90, 90]        # Load Case 2
+P_train = [66.6, 66.6, 66.6, 66.6, 66.6, 66.6]          # Load Case 1
+P_train = [66.6, 66.6, 66.6, 66.6, 66.6 * 1.35, 66.6 * 1.35]        # Load Case 2
 
 L = 1200    # Length of Bridge 
 n = 1200    # Discretize into 1 mm segments 
@@ -54,6 +54,8 @@ def calculate_sfd():
             for wheel in range(len(wheel_locations)):
                 if wheel_locations[wheel] == cut_position: 
                     shear_force -= P_train[wheel]
+
+            shear_force = round(shear_force, 3)
 
             match start: 
                 case 0: 
