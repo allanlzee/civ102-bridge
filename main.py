@@ -51,7 +51,7 @@ def thin_plate():
 
 def shear_force (plot):
     print("\nSHEAR FORCE")
-    print("Shear force envolope (N):", sfd_.sfd_envelope())
+    print("Shear Envolope (N):", sfd_.sfd_envelope())
 
     shear_force_diagrams = sfd_.calculate_sfd()
 
@@ -142,12 +142,15 @@ def FOS ():
 
 def bridge_parameters():
     print("\nBRIDGE PARAMETERS")
+    print("Leftover Matboard (mm^2): " + str(bp_.leftover(bp_.param)))
     print("Centroidal Axis (mm): " + str(bp_.centroidal_axis(bp_.param)))
     print("Second Moment of Area (mm4): " + str(bp_.second_moment_of_area(bp_.param)))
     print("First Moment of Area (Centroidal Axis to Bottom) [mm3]: " + str(bp_.calculate_first_moment_of_area(bp_.param, bp_.centroidal_axis(bp_.param), False)))
     print("First Moment of Area (Glue to Centroidal Axis) [mm3]: " + str(bp_.calculate_first_moment_of_area(bp_.param, bp_.glue_location, True)))
 
 if __name__ == "__main__":
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
     # shear_force(True)
     # bending_moment(True)
     # compressive_stress(True)

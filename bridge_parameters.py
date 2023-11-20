@@ -30,6 +30,19 @@ glue_location = 75
 centroidal_axis_width = 2 * 1.27
 glue_width = 6.27 * 2
 
+def leftover(param):
+    sum = 0
+    for i in param:
+        if i[1] != 1.27:
+            sum += i[1]
+            # print(i[1])
+        if i[2] != 1.27:
+            sum += i[2]
+            # print(i[2])
+
+    sum *= 1200
+    return 826008 - sum 
+
 def centroidal_axis(param) -> float: 
     """Return the position of the centroidal axis relative to the
     bottom of the cross section in mm."""
@@ -110,6 +123,7 @@ def calculate_first_moment_of_area(param, axis, glue=False) -> float:
         
 
 if __name__ == "__main__":
+    print("Enough Matboard: " + str(enough_matboard(param)))
     print("Centroidal Axis (mm): " + str(centroidal_axis(param)))
     print("Second Moment of Area (mm4): " + str(second_moment_of_area(param)))
     print("First Moment of Area (Centroidal Axis to Bottom) [mm3]: " + str(calculate_first_moment_of_area(param, centroidal_axis(param), False)))
