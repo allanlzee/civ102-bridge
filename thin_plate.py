@@ -37,7 +37,7 @@ def web():
     k = 6
 
     t = bp_.param[1][1]
-    b = bp_.param[1][2]
+    b = bp_.param[1][2] - bp_.centroidal_axis(bp_.param)
 
     # print(k, t, b)
 
