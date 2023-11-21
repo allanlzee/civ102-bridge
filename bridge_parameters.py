@@ -19,6 +19,10 @@ pg_0 = [[0.635, 80, 1.27],
         [74.365, 6.27, 1.27]
         ]
 
+y_0 = 76.27
+gl_0 = 75
+gw_0 = 2 * 6.27 
+
 # First Iteration: Adding matboard layer to the top to reduce compressive stress. 
 p_1 = [[0.635, 80, 1.27], 
         [37.5, 1.27, 72.46],
@@ -36,6 +40,9 @@ pg_1 = [[0.635, 80, 1.27],
         [74.365, 6.27, 1.27]
         ]
 
+y_1 = 76.27 + 1.27
+gl_1 = 75
+gw_1 = 2 * 6.27 
 
 # Second Iteration: Increase length of glue tabs. 
 p_2 = [[0.635, 80, 1.27], 
@@ -53,34 +60,40 @@ pg_2 = [[0.635, 80, 1.27],
         [74.365, 40, 1.27]
         ]
 
+y_2 = 76.27 + 1.27
+gl_2 = 75 
+gw_2 = 2 * 40
 
-# Third Iteration: Increase height of the bridge. 
+# Third Iteration: Increase height of the bridge to 120. 
 p_3 = [[0.635, 80, 1.27], 
-        [60 + 1.27, 1.27, 120],
-        [60 + 1.27, 1.27, 120],
-        [1.27 + 120 + 0.635, 40, 1.27],
-        [1.27 + 120 + 0.635, 40, 1.27],
-        [1.27 + 120 + 1.27 + 0.635, 100, 1.27]
+        [20 + 1.27, 1.27, 40],
+        [20 + 1.27, 1.27, 40],
+        [1.27 + 40 + 0.635, 1.27, 1.27],
+        [1.27 + 40 + 0.635, 1.27, 1.27],
+        [1.27 + 40 + 1.27 + 0.635, 100, 1.27]
         ]
 
 pg_3 = [[0.635, 80, 1.27], 
         [60 + 1.27, 1.27, 120],
         [60 + 1.27, 1.27, 120],
-        [1.27 + 120 + 0.635, 40, 1.27],
-        [1.27 + 120 + 0.635, 40, 1.27],
+        [1.27 + 40 + 0.635, 40, 1.27],
+        [1.27 + 40 + 0.635, 40, 1.27],
         ]
 
+y_3 = 40 + 3 * 1.27
+gl_3 = 40 + 2 * 1.27
+g_w3 = 2 * 1.27 
 
-param = p_1
-param_glue = pg_1
+param = p_0
+param_glue = pg_0
+y_top = y_0
+glue_location = gl_0
 
 y_bot = 0 
-y_top = 76.27
-glue_location = 75
 
 # Beam Widths at Depths of Interest 
 centroidal_axis_width = 2 * 1.27
-glue_width = 6.27 * 2
+glue_width = 80
 
 def leftover(param):
     sum = 0
