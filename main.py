@@ -139,6 +139,12 @@ def FOS ():
     print("Compressive FOS.: " + str(fos_.fos_compressive))
     print("Matboard Shear FOS.: " + str(fos_.fos_shear))
     print("Glue Shear FOS: " + str(fos_.fos_glue))
+    print("Center Thin Plate Buckling: " + str(fos_.fos_center))
+    print("Free Edge Thin Plate Buckling: " + str(fos_.fos_free_edge))
+    print("Web Thin Plate Buckling: " + str(fos_.fos_web))
+    print("Shear Thin Plate Buckling: " + str(fos_.fos_shear_buckling))
+
+    
 
 def bridge_parameters():
     print("\nBRIDGE PARAMETERS")

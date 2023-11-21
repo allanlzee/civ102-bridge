@@ -3,6 +3,7 @@ import bending_moment as bmd_
 import applied_tension as at_
 import applied_compression as ac_
 import shear_stress as ss_
+import thin_plate as tp_
 
 # Tensile Stress [MPa]
 tensile_stress = at_.calculate_tensile_stress(bmd_.calculate_bmd())
@@ -45,3 +46,14 @@ max_glue_right = axis_shear[2]
 GLUE_SHEAR_STRENGTH = 2 
 fos_glue = GLUE_SHEAR_STRENGTH / max(max_glue_left, max_glue_middle, max_glue_right)
 fos_glue = round(fos_glue, 3)
+
+# Thin Plate Buckling 
+fos_center = MATBOARD_COMPRESSIVE_STRENGTH / tp_.center()
+fos_free_edge = MATBOARD_COMPRESSIVE_STRENGTH / tp_.free_edge()
+fos_web = MATBOARD_COMPRESSIVE_STRENGTH / tp_.web() 
+fos_shear_buckling = MATBOARD_SHEAR_STRENGTH / tp_.shear()
+
+fos_center = round(fos_center, 3)
+fos_free_edge = round(fos_free_edge, 3)
+fos_web = round(fos_web, 3)
+fos_shear_buckling = round(fos_shear_buckling, 3)
