@@ -153,6 +153,24 @@ def bridge_parameters():
     print("Q (Centroidal Axis to Bottom) [mm3]: " + str(bp_.calculate_first_moment_of_area(bp_.param, bp_.centroidal_axis(bp_.param), False)))
     print("Q (Glue to Centroidal Axis) [mm3]: " + str(bp_.calculate_first_moment_of_area(bp_.param, bp_.glue_location, True)))
 
+def sorted_FOS():
+    lines_with_values = [
+        ("Applied Tensile: ", fos_.fos_tensile),
+        ("Applied Compressive: ", fos_.fos_compressive),
+        ("Web Thin Plate: ", fos_.fos_web),
+        ("Center Thin Plate: ", fos_.fos_center),
+        ("Free Edge Thin Plate: ", fos_.fos_free_edge),
+        ("Matboard Shear: ", fos_.fos_shear),
+        ("Shear Thin Plate: ", fos_.fos_shear_buckling),
+        ("Glue Shear: ", fos_.fos_glue)
+    ]
+
+    sorted_lines = sorted(lines_with_values, key=lambda x: x[1], reverse=True)
+
+    print("\nSORTED FOS")
+    for line, value in sorted_lines:
+        print(line + str(value))
+
 if __name__ == "__main__":
     print("\n" * 10)
 
@@ -161,7 +179,8 @@ if __name__ == "__main__":
     # compressive_stress(False)
     # tensile_stress(False)
     # shear_stress()
-    thin_plate()
+    # thin_plate()
     bridge_parameters()
-    FOS()
-
+    # FOS()
+    
+    sorted_FOS()

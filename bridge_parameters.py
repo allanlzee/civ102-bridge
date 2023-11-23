@@ -40,7 +40,7 @@ p_3 = [[0.635, 80, 1.27],
         [1.27 + 120 + 1.27 + 0.635, 100, 1.27]
         ]
 
-# Fourth Iteration: Decrease width of the top plate to decrease free edge buckling.
+# Fourth Iteration: Increase width of the top plate to decrease free edge buckling.
 p_4 = [[0.635, 80, 1.27], 
         [60 + 1.27, 1.27, 150],
         [60 + 1.27, 1.27, 150],
@@ -49,10 +49,30 @@ p_4 = [[0.635, 80, 1.27],
         [1.27 + 120 + 1.27 + 0.635, 120, 1.27]
         ]
 
+# Fifth Iteration: Limiting free edge buckling. 
+p_5 = [[0.635, 80, 1.27], 
+        [60 + 1.27, 1.27, 180],
+        [60 + 1.27, 1.27, 180],
+        [1.27 + 120 + 0.635, 5, 1.27],
+        [1.27 + 120 + 0.635, 5, 1.27],
+        [1.27 + 120 + 1.27 + 0.635, 140, 1.27]
+        ]
+
+# Sixth Iteration: Failure by compression counteracted by raising centroidal axis.
+p_6 = [[0.635, 80, 1.27], 
+        [60 + 1.27, 1.27, 180],
+        [60 + 1.27, 1.27, 180],
+        [1.27 + 120 + 0.635, 5, 1.27],
+        [1.27 + 120 + 0.635, 5, 1.27],
+        [1.27 + 120 + 1.27 + 0.635, 160, 1.27]
+        ]
+
 # ---------
 
 
-param = p_0
+
+
+param = p_6
 
 top_layers = 1
 y_top = param[0][2]
@@ -102,8 +122,9 @@ def leftover(param):
             sum += i[2]
             # print(i[2])
 
-    sum *= 1200
+    sum *= 1270
     return 826008 - sum 
+
 
 def centroidal_axis(param) -> float: 
     """Return the position of the centroidal axis relative to the

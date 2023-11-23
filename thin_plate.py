@@ -36,9 +36,9 @@ def web():
     k = 6
 
     t = bp_.param[1][1]
-    b = bp_.param[1][2] - bp_.centroidal_axis(bp_.param)
+    b = 2*1.27 + bp_.param[1][2] - bp_.centroidal_axis(bp_.param)
 
-    # print(k, t, b)
+    # print(k, bp_.param[1][2], t, b)
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
 
@@ -47,7 +47,7 @@ def shear():
     k = 5
 
     t = bp_.param[1][1]
-    h = bp_.param[1][2]
+    h = 2*1.27 + bp_.param[1][2]
 
     a = diaphrams()
 
@@ -59,7 +59,7 @@ def diaphrams():
     inner_b = 80 - 2*1.27
     inner_h = bp_.param[2][2]
     inner_area = inner_b * inner_h
-    n_diaphrams = (bp_.leftover(bp_.param) - (bp_.leftover(bp_.param) % inner_area) )/ inner_area
+    n_diaphrams = (bp_.leftover(bp_.param) - (bp_.leftover(bp_.param) % inner_area))/ inner_area
 
     n_diaphrams = 1               # override
     a = 1200 / n_diaphrams
