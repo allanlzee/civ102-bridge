@@ -12,10 +12,6 @@ p_0 = [[0.635, 80, 1.27],
         [75.635, 100, 1.27]
         ]
 
-y_0 = 76.27
-gl_0 = 75
-gw_0 = 2 * 6.27 
-
 # First Iteration: Adding matboard layer to the top to reduce compressive stress. 
 p_1 = [[0.635, 80, 1.27], 
         [37.5, 1.27, 72.46],
@@ -26,10 +22,6 @@ p_1 = [[0.635, 80, 1.27],
         [75.635 + 1.27 / 2, 100, 1.27],
         ]
 
-y_1 = 76.27 + 1.27
-gw_1 = 2 * 6.27 
-a_2 = [0, 1200]
-
 # Second Iteration: Increase length of glue tabs. 
 p_2 = [[0.635, 80, 1.27], 
         [37.5, 1.27, 72.46],
@@ -38,10 +30,6 @@ p_2 = [[0.635, 80, 1.27],
         [74.365, 40, 1.27],
         [75.635, 100, 1.27]
         ]
-
-y_2 = 76.27 + 1.27
-gw_2 = 2 * 40
-a_2 = [0, 1200]
 
 # Third Iteration: Increase height of the bridge to 120. 
 p_3 = [[0.635, 80, 1.27], 
@@ -52,39 +40,29 @@ p_3 = [[0.635, 80, 1.27],
         [1.27 + 120 + 1.27 + 0.635, 100, 1.27]
         ]
 
-y_3 = 120 + 3 * 1.27
-gw_3 = 80
-a_3 = [0, 1200]
-
 # Fourth Iteration: Decrease width of the top plate to decrease free edge buckling.
 p_4 = [[0.635, 80, 1.27], 
-        [60 + 1.27, 1.27, 120],
-        [60 + 1.27, 1.27, 120],
+        [60 + 1.27, 1.27, 150],
+        [60 + 1.27, 1.27, 150],
         [1.27 + 120 + 0.635, 1.27, 1.27],
         [1.27 + 120 + 0.635, 1.27, 1.27],
         [1.27 + 120 + 1.27 + 0.635, 120, 1.27]
         ]
 
-y_4 = 120 + 3 * 1.27
-gw_4 = 80
-a_4 = [0, 1200]
+# ---------
 
 
+param = p_0
 
-
-param = p_4
-glue_width = gw_4
-diaphram = a_4
-
-
-top_layers = 2
+top_layers = 1
 y_top = param[0][2]
 for i in range(1, len(param)):
     if param[i][0] != param[i-1][0]:
         y_top += param[i][2]
 glue_location = y_top - top_layers*1.27
 flange = (param[len(param) - 1][1] - 80)/2
-param_glue = param[-top_layers:]
+param_glue = param[0:-top_layers]
+glue_width = param_glue[-1][1]*2
 y_bot = 0 
 centroidal_axis_width = 2 * 1.27
 

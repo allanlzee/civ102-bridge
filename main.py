@@ -44,10 +44,10 @@ def shear_stress ():
 
 def thin_plate():
     print("\nTHIN PLATE")
-    print("Bottom Center (MPa): " + str(tp_.center()))
-    print("Overhangs (MPa): " + str(tp_.free_edge()))
+    print("Four restrianed (MPa): " + str(tp_.center()))
+    print("Free edge (MPa): " + str(tp_.free_edge()))
     print("Web (MPa): " + str(tp_.web()))
-    print("Top Center (MPa): " + str(tp_.shear()))
+    print("Shear (MPa): " + str(tp_.shear()))
 
 def shear_force (plot):
     print("\nSHEAR FORCE")
@@ -147,6 +147,7 @@ def FOS ():
 def bridge_parameters():
     print("\nBRIDGE PARAMETERS")
     print("Leftover Matboard (mm^2): " + str(bp_.leftover(bp_.param)))
+    print("Leftover Matboard (mm): " + str(round(bp_.leftover(bp_.param) ** 0.5, 3)))
     print("Centroidal Axis (mm): " + str(bp_.centroidal_axis(bp_.param)))
     print("I (mm4): " + str(bp_.second_moment_of_area(bp_.param)))
     print("Q (Centroidal Axis to Bottom) [mm3]: " + str(bp_.calculate_first_moment_of_area(bp_.param, bp_.centroidal_axis(bp_.param), False)))
@@ -155,19 +156,12 @@ def bridge_parameters():
 if __name__ == "__main__":
     print("\n" * 10)
 
-    # shear_force(True)
-    # bending_moment(True)
-    # compressive_stress(True)
-    # tensile_stress(True)
-
-    shear_force(False)
-    bending_moment(False)
-    compressive_stress(False)
-    tensile_stress(False)
-
-    shear_stress()
+    # shear_force(False)
+    # bending_moment(False)
+    # compressive_stress(False)
+    # tensile_stress(False)
+    # shear_stress()
     thin_plate()
-
     bridge_parameters()
     FOS()
 
