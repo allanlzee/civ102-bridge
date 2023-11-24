@@ -180,7 +180,6 @@ if __name__ == "__main__":
     # tensile_stress(False)
     # shear_stress()
     # thin_plate()
-    bridge_parameters()
-    # FOS()
     
+    bridge_parameters()
     sorted_FOS()
