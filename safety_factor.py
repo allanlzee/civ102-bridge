@@ -53,7 +53,7 @@ MAX_COMPRESSION = max(ac_.calculate_compressive_stress(bmd_.calculate_bmd())[1])
 fos_center = tp_.center() / MAX_COMPRESSION
 fos_free_edge = tp_.free_edge() / MAX_COMPRESSION
 
-print(bp_.param[4][0] + bp_.param[4][2] - bp_.centroidal_axis(bp_.param))
+#print(bp_.param[4][0] + bp_.param[4][2] - bp_.centroidal_axis(bp_.param))
 web_compression = max(bmd_.bmd_envelope()) * (bp_.param[4][0] + bp_.param[4][2] / 2 - bp_.centroidal_axis(bp_.param)) / bp_.second_moment_of_area(bp_.param)
 fos_web = tp_.web() / web_compression
 

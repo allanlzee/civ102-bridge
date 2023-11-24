@@ -15,8 +15,10 @@ def center():
     t = bp_.param[5][2]
     b = bp_.param[5][1] - 2 * flange_width
 
+    """
     print("Center: ")
     print(k, t, b)
+    """
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
     
@@ -27,8 +29,10 @@ def free_edge():
     t = bp_.param[5][2]
     b = flange_width
 
+    """
     print("Free Edge")
     print(k, t, b)
+    """
 
     # print(round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3))
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
@@ -40,10 +44,12 @@ def web():
     t = bp_.param[1][1]
     b = 1.27 * bp_.top_layers + 1.27 + bp_.param[1][2] - bp_.centroidal_axis(bp_.param)
 
+    """
     print("Web")
     print(bp_.centroidal_axis(bp_.param))
     print(bp_.param[1][2])
     print(k, bp_.param[1][2], t, b)
+    """
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
 
@@ -65,7 +71,6 @@ def diaphrams():
     inner_h = bp_.param[2][2]
     inner_area = inner_b * inner_h
     n_diaphrams = (bp_.leftover(bp_.param) - (bp_.leftover(bp_.param) % inner_area))/ inner_area
-    print("Diagggggg: ", n_diaphrams)
 
     # n_diaphrams = 1               # override
     a = 1200 / n_diaphrams
