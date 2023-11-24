@@ -65,8 +65,9 @@ def diaphrams():
     inner_h = bp_.param[2][2]
     inner_area = inner_b * inner_h
     n_diaphrams = (bp_.leftover(bp_.param) - (bp_.leftover(bp_.param) % inner_area))/ inner_area
+    print("Diagggggg: ", n_diaphrams)
 
-    n_diaphrams = 1               # override
+    # n_diaphrams = 1               # override
     a = 1200 / n_diaphrams
 
     return a

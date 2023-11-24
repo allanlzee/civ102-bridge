@@ -57,7 +57,7 @@ print(bp_.param[4][0] + bp_.param[4][2] - bp_.centroidal_axis(bp_.param))
 web_compression = max(bmd_.bmd_envelope()) * (bp_.param[4][0] + bp_.param[4][2] / 2 - bp_.centroidal_axis(bp_.param)) / bp_.second_moment_of_area(bp_.param)
 fos_web = tp_.web() / web_compression
 
-fos_shear_buckling = MATBOARD_SHEAR_STRENGTH / tp_.shear()
+fos_shear_buckling = tp_.shear() / max(ss_.axis_shear(False))
 
 fos_center = round(fos_center, 3)
 fos_free_edge = round(fos_free_edge, 3)

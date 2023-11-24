@@ -6,6 +6,7 @@ import copy
 x_train = [52, 228, 392, 568, 732, 908]     # Train Load Locations (mm)
 start_locations = [0, 120, 240]
 wheel = 66.6666666666666666666666666666666
+wheel = 149.25
 P_train = [wheel, wheel, wheel, wheel, wheel, wheel]          # Load Case 1
 P_train = [wheel, wheel, wheel, wheel, wheel * 1.35, wheel * 1.35]        # Load Case 2
 
