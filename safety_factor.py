@@ -48,9 +48,10 @@ fos_glue = GLUE_SHEAR_STRENGTH / max(max_glue_left, max_glue_middle, max_glue_ri
 fos_glue = round(fos_glue, 3)
 
 # Thin Plate Buckling 
-fos_center = MATBOARD_COMPRESSIVE_STRENGTH / tp_.center()
-fos_free_edge = MATBOARD_COMPRESSIVE_STRENGTH / tp_.free_edge()
-fos_web = MATBOARD_COMPRESSIVE_STRENGTH / tp_.web() 
+MAX_COMPRESSION = max(ac_.calculate_compressive_stress(bmd_.calculate_bmd())[1])
+fos_center = tp_.center() / MAX_COMPRESSION
+fos_free_edge = tp_.free_edge() / MAX_COMPRESSION
+fos_web = tp_.web() / MAX_COMPRESSION
 fos_shear_buckling = MATBOARD_SHEAR_STRENGTH / tp_.shear()
 
 fos_center = round(fos_center, 3)

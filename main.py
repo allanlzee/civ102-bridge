@@ -174,13 +174,12 @@ def sorted_FOS():
 if __name__ == "__main__":
     print("\n" * 10)
 
-    # shear_force(False)
-    # bending_moment(False)
-    # compressive_stress(False)
-    # tensile_stress(False)
-    # shear_stress()
-    # thin_plate()
+    shear_force(False)
+    bending_moment(False)
+    compressive_stress(False)
+    tensile_stress(False)
+    shear_stress()
+    thin_plate()
     bridge_parameters()
-    # FOS()
     
     sorted_FOS()

@@ -72,7 +72,7 @@ p_6 = [[0.635, 80, 1.27],
 
 
 
-param = p_6
+param = p_0
 
 top_layers = 1
 y_top = param[0][2]
