@@ -4,14 +4,14 @@ import copy
 # PARAMETERS
 x_train = [52, 228, 392, 568, 732, 908]     # Train Load Locations (mm)
 start_locations = [0, 120, 240]
-start_locations = [0 + 35, 120 + 35, 240 + 35]
+#start_locations = [0 + 35, 120 + 35, 240 + 35]
 wheel = 66.666
-wheel = 149.25
+#wheel = 149.25
 P_train = [wheel, wheel, wheel, wheel, wheel, wheel]          # Load Case 1
 P_train = [wheel, wheel, wheel, wheel, wheel * 1.35, wheel * 1.35]        # Load Case 2
 
-L = 1270    # Length of Bridge 
-n = 1270    # Discretize into 1 mm segments 
+L = 1200   # Length of Bridge 
+n = 1200    # Discretize into 1 mm segments 
 
 x = [] 
 for i in range(1201): 

@@ -12,7 +12,9 @@ def calculate_compressive_stress(bmds):
     left_compression, middle_compression, right_compression = [0] * (sfd_.n + 1), [0] * (sfd_.n + 1), [0] * (sfd_.n + 1)
 
     y = bp_.y_top - bp_.centroidal_axis(bp_.param) 
+    print("hellooooo", y)
     I = bp_.second_moment_of_area(bp_.param)
+    print("hellloooo", I)
 
     for i in range(len(bmds)): 
         for pos in range(sfd_.n + 1): 

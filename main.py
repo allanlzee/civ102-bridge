@@ -174,7 +174,7 @@ if __name__ == "__main__":
     print("\n" * 10)
 
     shear_force(False)
-    # bending_moment(False)
+    bending_moment(False)
     # compressive_stress(False)
     # tensile_stress(False)
     shear_stress()
