@@ -4,6 +4,7 @@ import applied_tension as at_
 import applied_compression as ac_
 import shear_stress as ss_
 import thin_plate as tp_
+import bridge_parameters as bp_
 
 # Tensile Stress [MPa]
 tensile_stress = at_.calculate_tensile_stress(bmd_.calculate_bmd())
@@ -51,7 +52,11 @@ fos_glue = round(fos_glue, 3)
 MAX_COMPRESSION = max(ac_.calculate_compressive_stress(bmd_.calculate_bmd())[1])
 fos_center = tp_.center() / MAX_COMPRESSION
 fos_free_edge = tp_.free_edge() / MAX_COMPRESSION
-fos_web = tp_.web() / MAX_COMPRESSION
+
+print(bp_.param[4][0] + bp_.param[4][2] - bp_.centroidal_axis(bp_.param))
+web_compression = max(bmd_.bmd_envelope()) * (bp_.param[4][0] + bp_.param[4][2] / 2 - bp_.centroidal_axis(bp_.param)) / bp_.second_moment_of_area(bp_.param)
+fos_web = tp_.web() / web_compression
+
 fos_shear_buckling = MATBOARD_SHEAR_STRENGTH / tp_.shear()
 
 fos_center = round(fos_center, 3)

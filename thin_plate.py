@@ -15,7 +15,8 @@ def center():
     t = bp_.param[5][2]
     b = bp_.param[5][1] - 2 * flange_width
 
-    # print(k, t, b)
+    print("Center: ")
+    print(k, t, b)
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
     
@@ -26,7 +27,8 @@ def free_edge():
     t = bp_.param[5][2]
     b = flange_width
 
-    # print(k, t, b)
+    print("Free Edge")
+    print(k, t, b)
 
     # print(round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3))
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
@@ -36,9 +38,12 @@ def web():
     k = 6
 
     t = bp_.param[1][1]
-    b = 2*1.27 + bp_.param[1][2] - bp_.centroidal_axis(bp_.param)
+    b = 1.27 * bp_.top_layers + 1.27 + bp_.param[1][2] - bp_.centroidal_axis(bp_.param)
 
-    # print(k, bp_.param[1][2], t, b)
+    print("Web")
+    print(bp_.centroidal_axis(bp_.param))
+    print(bp_.param[1][2])
+    print(k, bp_.param[1][2], t, b)
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
 
