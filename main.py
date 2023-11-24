@@ -27,7 +27,7 @@ def compressive_stress (plot):
 
         plt.plot(np.array(compressive_stresses[stress]), label = leg_label)
 
-    print("Maximum Compressive Stress [MPa]: " + str(max(compressive_stresses[1])))
+    print("Maximum Compressive Stress [MPa]: " + str(max(compressive_stresses[0])))
 
     plt.legend()
     plt.xlabel("Bridge Distance (mm)")
@@ -94,7 +94,7 @@ def tensile_stress(plot):
 
         plt.plot(np.array(tensile_stresses[stress]), label = leg_label)
 
-    print("Maximum Tensile Stress [MPa]: " + str(max(tensile_stresses[1])))
+    print("Maximum Tensile Stress [MPa]: " + str(max(tensile_stresses[0])))
 
     plt.legend()
     plt.xlabel("Bridge Distance (mm)")
@@ -126,7 +126,6 @@ def bending_moment(plot):
     plt.plot(np.array([0] * (sfd_.n + 1)), color="black")
 
     plt.legend()
-    plt.ylim(100000, 0)
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Moment (Nmm)")
     plt.title("Bending Moment Diagrams for Left, Middle, and Right Train Placements")
@@ -175,11 +174,11 @@ if __name__ == "__main__":
     print("\n" * 10)
 
     shear_force(False)
-    bending_moment(False)
-    compressive_stress(False)
-    tensile_stress(False)
+    # bending_moment(False)
+    # compressive_stress(False)
+    # tensile_stress(False)
     shear_stress()
     thin_plate()
+
     bridge_parameters()
-    
     sorted_FOS()

@@ -29,12 +29,10 @@ fos_compressive = round(fos_compressive, 3)
 
 # Shear Stress [MPa]
 axis_shear = ss_.axis_shear(False)
-max_shear_left = axis_shear[0]
 max_shear_middle = axis_shear[1]
-max_shear_right = axis_shear[2]
 
 MATBOARD_SHEAR_STRENGTH = 4 
-fos_shear = MATBOARD_SHEAR_STRENGTH / max(max_shear_left, max_shear_middle, max_shear_right)
+fos_shear = MATBOARD_SHEAR_STRENGTH / max_shear_middle
 fos_shear = round(fos_shear, 3)
 
 # Glue Shear Stress [MPa]
@@ -49,7 +47,8 @@ fos_glue = GLUE_SHEAR_STRENGTH / max(max_glue_left, max_glue_middle, max_glue_ri
 fos_glue = round(fos_glue, 3)
 
 # Thin Plate Buckling 
-MAX_COMPRESSION = max(ac_.calculate_compressive_stress(bmd_.calculate_bmd())[1])
+MAX_COMPRESSION = max(ac_.calculate_compressive_stress(bmd_.calculate_bmd())[0])
+print("max compression", MAX_COMPRESSION)
 fos_center = tp_.center() / MAX_COMPRESSION
 fos_free_edge = tp_.free_edge() / MAX_COMPRESSION
 

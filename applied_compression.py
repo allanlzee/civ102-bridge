@@ -31,27 +31,3 @@ def calculate_compressive_stress(bmds):
     return [left_compression, middle_compression, right_compression]
 
 # Beam failure resulting from compression (centroidal axis to top surface). 
-
-if __name__ == "__main__":
-    compressive_stresses = calculate_compressive_stress(bmd_.calculate_bmd())
-
-    for stress in range(len(compressive_stresses)):
-        leg_label = None 
-
-        match stress: 
-            case 0: 
-                leg_label = "Left Stress"
-            case 1: 
-                leg_label = "Middle Stress"
-            case 2: 
-                leg_label = "Right Stress"
-
-        plt.plot(np.array(compressive_stresses[stress]), label = leg_label)
-
-    print("Maximum Compressive Stress [MPa]: " + str(max(compressive_stresses[1])))
-
-    plt.legend()
-    plt.xlabel("Bridge Distance (mm)")
-    plt.ylabel("Compressive Stress (MPa)")
-    plt.title("Compressive Stress Diagrams for Left, Middle, and Right Train Placements")
-    plt.show()

@@ -1,5 +1,3 @@
-import numpy as np
-import matplotlib.pyplot as plt 
 from scipy.integrate import trapz 
 import shear_force as sfd 
 
@@ -42,34 +40,3 @@ def bmd_envelope():
     right_max_moment = max(bending_moment_diagrams[2])
 
     return left_max_moment, middle_max_moment, right_max_moment
-
-
-if __name__ == "__main__": 
-    bending_moment_diagrams = calculate_bmd() 
-    
-    # Note that all compressions will be given as positive.
-    # Refer to the bending moment diagrams to see which signs the moment has.
-    print("Moment Envelope (Nmm)")
-    print("-" * len("Moment Envelope (Nmm)"))
-    print(bmd_envelope())
-    
-    for bmd in range(len(bending_moment_diagrams)): 
-        leg_label = None
-        match bmd: 
-            case 0: 
-                leg_label = "Left BMD"
-            case 1: 
-                leg_label = "Middle BMD"
-            case 2: 
-                leg_label = "Right BMD"
-
-        plt.plot(np.array(bending_moment_diagrams[bmd]), label = leg_label)
-        
-    plt.plot(np.array([0] * (sfd.n + 1)), color="black")
-
-    plt.legend()
-    plt.ylim(100000, 0)
-    plt.xlabel("Bridge Distance (mm)")
-    plt.ylabel("Moment (Nmm)")
-    plt.title("Bending Moment Diagrams for Left, Middle, and Right Train Placements")
-    plt.show()

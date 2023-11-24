@@ -11,45 +11,29 @@ flange_width = bp_.flange         # mm
 def center():
     global thickness, E, poisson
     k = 4
- 
-    t = bp_.param[5][2]
-    b = bp_.param[5][1] - 2 * flange_width
+    t = 2*1.27
+    b = 80
+    
+    crit = round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
 
-    """
-    print("Center: ")
-    print(k, t, b)
-    """
-
-    return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
+    return crit
     
 def free_edge():
     global thickness, E, poisson
     k = 0.425
 
-    t = bp_.param[5][2]
+    t = 2*1.27
     b = flange_width
 
-    """
-    print("Free Edge")
-    print(k, t, b)
-    """
-
-    # print(round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3))
-    return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
+    crit = round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
+    return crit
 
 def web():
     global thickness, E, poisson
     k = 6
 
     t = bp_.param[1][1]
-    b = 1.27 * bp_.top_layers + 1.27 + bp_.param[1][2] - bp_.centroidal_axis(bp_.param)
-
-    """
-    print("Web")
-    print(bp_.centroidal_axis(bp_.param))
-    print(bp_.param[1][2])
-    print(k, bp_.param[1][2], t, b)
-    """
+    b = 140 - 2*1.27 -  bp_.centroidal_axis(bp_.param)
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
 
@@ -57,12 +41,10 @@ def shear():
     global thickness, E, poisson
     k = 5
 
-    t = bp_.param[1][1]
-    h = 2*1.27 + bp_.param[1][2]
+    t = 1.27
+    h = 140 - 3*1.27
 
     a = diaphrams()
-
-    # print(k, t, h, a)
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * ((t/h)**2 + (t/a)**2), 3)
 
@@ -72,7 +54,7 @@ def diaphrams():
     inner_area = inner_b * inner_h
     n_diaphrams = (bp_.leftover(bp_.param) - (bp_.leftover(bp_.param) % inner_area))/ inner_area
 
-    # n_diaphrams = 1               # override
-    a = 1200 / n_diaphrams
+    n_diaphrams = 12               # override
+    a = 1270 / (n_diaphrams-1)
 
     return a

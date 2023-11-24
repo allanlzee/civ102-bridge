@@ -96,17 +96,32 @@ p_9 = [ [0, 0, 0],
         [h - 1.27, 120, 2* 1.27],
         ]
 
-param = p_9
+h = 180
+p_10 = [ [0, 0, 0],
+        [(h - 3 * 1.27) / 2, 1.27, h - 3 * 1.27],
+        [(h - 3 * 1.27) / 2, 1.27, h - 3 * 1.27],
+        [(h - 3 * 1.27) + 0.635, 5, 1.27],
+        [(h - 3 * 1.27) + 0.635, 5, 1.27],
+        [h - 1.27, 140, 2* 1.27],
+        ]
 
-top_layers = 1
-y_top = param[0][2]
-for i in range(1, len(param)):
-    if param[i][0] != param[i-1][0]:
-        y_top += param[i][2]
+h = 140
+p_11 = [ [0, 0, 0],
+        [(h - 3 * 1.27) / 2, 1.27, 140 - 3 * 1.27],
+        [(h - 3 * 1.27) / 2, 1.27, 140 - 3 * 1.27],
+        [(h - 3 * 1.27) + 0.635, 5.27, 1.27],
+        [(h - 3 * 1.27) + 0.635, 5.27, 1.27],
+        [h - 1.27 - 0.635, 130, 1.27],
+        [h - 0.635, 130, 1.27],
+        ]
+
+param = p_11
+top_layers = 2
+y_top = h
 glue_location = y_top - top_layers*1.27
-flange = (param[len(param) - 1][1] - 80)/2
+flange = 25
 param_glue = param[0:-top_layers]
-glue_width = param_glue[-1][1]*2
+glue_width = 5.27*2
 y_bot = 0 
 centroidal_axis_width = 2 * 1.27
 
@@ -141,10 +156,8 @@ def leftover(param):
     for i in param:
         if i[1] != 1.27:
             sum += i[1]
-            # print(i[1])
         if i[2] != 1.27:
             sum += i[2]
-            # print(i[2])
 
     sum *= 1270
     return 826008 - sum 
@@ -161,9 +174,9 @@ def centroidal_axis(param) -> float:
 
         total_area += area
         centroid_area += area * cross_section[0]
-
-    return round(centroid_area / total_area, 3)
-
+    
+    y_bar = round(centroid_area / total_area, 3)
+    return y_bar
 
 def second_moment_of_area(param) -> float: 
     """Return the second moment of area of the cross section based 
@@ -185,8 +198,8 @@ def second_moment_of_area(param) -> float:
 # First Moment of Area Parameters for Centroidal Axis. 
 # Take relative position from the bottom surface of the bridge. 
 param_centroidal_axis = [[1.27 / 2, 80, 1.27], 
-                         [1.27 + (centroidal_axis(param) - 1.27) / 2, 1.27, centroidal_axis(param) - 1.27], 
-                         [1.27 + (centroidal_axis(param) - 1.27) / 2, 1.27, centroidal_axis(param) - 1.27]
+                         [(centroidal_axis(param) - 1.27) / 2, 1.27, centroidal_axis(param) - 1.27], 
+                         [(centroidal_axis(param) - 1.27) / 2, 1.27, centroidal_axis(param) - 1.27]
                         ]
 
 

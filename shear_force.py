@@ -1,12 +1,11 @@
 import numpy as np
-import matplotlib.pyplot as plt 
 import copy
 
 # PARAMETERS
 x_train = [52, 228, 392, 568, 732, 908]     # Train Load Locations (mm)
 start_locations = [0, 120, 240]
 start_locations = [0 + 35, 120 + 35, 240 + 35]
-wheel = 66.6666666666666666666666666666666
+wheel = 66.666
 wheel = 149.25
 P_train = [wheel, wheel, wheel, wheel, wheel, wheel]          # Load Case 1
 P_train = [wheel, wheel, wheel, wheel, wheel * 1.35, wheel * 1.35]        # Load Case 2
@@ -84,27 +83,3 @@ def sfd_envelope():
     right_max_shear = max(max(shear_force_diagrams[2]), abs(min(shear_force_diagrams[2])))
 
     return left_max_shear, middle_max_shear, right_max_shear
-
-if __name__ == "__main__":
-    shear_force_diagrams = calculate_sfd()
-
-    for sfd in range(len(shear_force_diagrams)): 
-        leg_label = None
-        match sfd: 
-            case 0: 
-                leg_label = "Left SFD"
-            case 1: 
-                leg_label = "Middle SFD"
-            case 2: 
-                leg_label = "Right SFD"
-            
-        plt.plot(np.array(shear_force_diagrams[sfd]), label = leg_label)
-    
-    plt.plot(np.array([0] * (n + 1)), color="black")
-        
-    plt.legend()
-    plt.ylim(-300, 300)
-    plt.xlabel("Bridge Distance (mm)")
-    plt.ylabel("Shear Force (N)")
-    plt.title("Shear Force Diagrams for Left, Middle, and Right Train Placements")
-    plt.show()
