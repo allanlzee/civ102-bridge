@@ -8,6 +8,7 @@ E = 4000                  # MPa
 poisson = 0.2             # unitles
 flange_width = bp_.flange         # mm
 
+# Working
 def center():
     global thickness, E, poisson
     k = 4
@@ -19,7 +20,8 @@ def center():
     print(k, t, b)
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
-    
+
+# Working
 def free_edge():
     global thickness, E, poisson
     k = 0.425
@@ -33,6 +35,7 @@ def free_edge():
     # print(round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3))
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
 
+# WORKING
 def web():
     global thickness, E, poisson
     k = 6
@@ -57,6 +60,7 @@ def shear():
     a = diaphrams()
 
     # print(k, t, h, a)
+    print(round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * ((t/h)**2 + (t/a)**2), 3))
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * ((t/h)**2 + (t/a)**2), 3)
 
