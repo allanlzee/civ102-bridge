@@ -227,5 +227,8 @@ def calculate_first_moment_of_area(param, axis, glue=False) -> float:
     if glue: 
         shaded_centroid = centroidal_axis(param_glue) 
         first_moment_of_area *= abs(shaded_centroid - centroidal_axis(param))
+    else: 
+        shaded_centroid = centroidal_axis(param_centroidal_axis)
+        first_moment_of_area *= abs(shaded_centroid - centroidal_axis(param))
 
     return first_moment_of_area

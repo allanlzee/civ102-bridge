@@ -12,8 +12,9 @@ import numpy as np
 
 def compressive_stress (plot):
     print("\nCOMPRESSIVE STRESS")
-    compressive_stresses = ac_.calculate_compressive_stress(bmd_.calculate_bmd())
+    compressive_stresses = ac_.calculate_compressive_stress()
 
+    """
     for stress in range(len(compressive_stresses)):
         leg_label = None 
 
@@ -26,9 +27,11 @@ def compressive_stress (plot):
                 leg_label = "Right Stress"
 
         plt.plot(np.array(compressive_stresses[stress]), label = leg_label)
+    """
 
-    print("Maximum Compressive Stress [MPa]: " + str(max(compressive_stresses[1])))
+    print("Maximum Compressive Stress [MPa]: " + str(compressive_stresses))
 
+    """
     plt.legend()
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Compressive Stress (MPa)")
@@ -36,6 +39,7 @@ def compressive_stress (plot):
     
     if plot:
         plt.show()
+    """
 
 def shear_stress (): 
     print("\nSHEAR STRESS")
@@ -51,9 +55,14 @@ def thin_plate():
 
 def shear_force (plot):
     print("\nSHEAR FORCE")
-    print("Shear Envolope (N):", sfd_.sfd_envelope())
 
-    shear_force_diagrams = sfd_.calculate_sfd()
+    shear_force_diagrams = sfd_.calculate_sfd_right_middle_left()
+    all_shear_force_diagrams = sfd_.calculate_sfd()
+    sfd_envelope = sfd_.sfd_envelope_all()
+
+    for sfd in all_shear_force_diagrams: 
+        sfd.insert(0, 0)
+        plt.plot(np.array(sfd))
 
     for sfd in range(len(shear_force_diagrams)): 
         leg_label = None
@@ -64,52 +73,50 @@ def shear_force (plot):
                 leg_label = "Middle SFD"
             case 2: 
                 leg_label = "Right SFD"
+
+        shear_force_diagrams[sfd].insert(0, 0)
+        shear_force_diagrams[sfd].append(0)
             
-        plt.plot(np.array(shear_force_diagrams[sfd]), label = leg_label)
+        plt.plot(np.array(shear_force_diagrams[sfd]), label = leg_label, linewidth=3.0)
     
+    # Plot shear force envelope. 
+    plt.plot(np.array(sfd_envelope), label="Shear Force Envelope")
     plt.plot(np.array([0] * (sfd_.n + 1)), color="black")
         
     plt.legend()
     plt.ylim(-300, 300)
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Shear Force (N)")
-    plt.title("Shear Force Diagrams for Left, Middle, and Right Train Placements")
+    plt.title("Shear Force Diagrams for Moving Placements - Design 0, Load Case 1")
     if plot:
         plt.show()
 
 def tensile_stress(plot):
     print("\nTENSILE STRESS")
-    tensile_stresses = at_.calculate_tensile_stress(bmd_.calculate_bmd())
+    tensile_stress = at_.calculate_tensile_stress()
 
-    for stress in range(len(tensile_stresses)):
-        leg_label = None 
+    print("Maximum Tensile Stress [MPa]: " + str(tensile_stress))
 
-        match stress: 
-            case 0: 
-                leg_label = "Left Stress"
-            case 1: 
-                leg_label = "Middle Stress"
-            case 2: 
-                leg_label = "Right Stress"
-
-        plt.plot(np.array(tensile_stresses[stress]), label = leg_label)
-
-    print("Maximum Tensile Stress [MPa]: " + str(max(tensile_stresses[1])))
-
+    """
     plt.legend()
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Tensile Stress (MPa)")
     plt.title("Tensile Stress Diagrams for Left, Middle, and Right Train Placements")
     if plot:
         plt.show()
+    """
 
 def bending_moment(plot):
     print("\nBENDING MOMENT")
-    bending_moment_diagrams = bmd_.calculate_bmd() 
+    bending_moment_diagrams = bmd_.calculate_bmd_right_middle_left() 
+    all_bending_moment_diagrams = bmd_.calculate_bmd()
     
     # Note that all compressions will be given as positive.
     # Refer to the bending moment diagrams to see which signs the moment has.
-    print("Moment Envelope (Nmm):", bmd_.bmd_envelope())
+    bmd_envelope = bmd_.bmd_envelope_all() 
+
+    for bmd in all_bending_moment_diagrams: 
+        plt.plot(np.array(bmd))
     
     for bmd in range(len(bending_moment_diagrams)): 
         leg_label = None
@@ -121,15 +128,18 @@ def bending_moment(plot):
             case 2: 
                 leg_label = "Right BMD"
 
-        plt.plot(np.array(bending_moment_diagrams[bmd]), label = leg_label)
+        plt.plot(np.array(bending_moment_diagrams[bmd]), label = leg_label, linewidth=3.0)
         
+    # Plot bending moment envelope. 
+    plt.plot(np.array(bmd_envelope), label = "Bending Moment Envelope", linewidth=3.0)
+
     plt.plot(np.array([0] * (sfd_.n + 1)), color="black")
 
     plt.legend()
     plt.ylim(100000, 0)
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Moment (Nmm)")
-    plt.title("Bending Moment Diagrams for Left, Middle, and Right Train Placements")
+    plt.title("Bending Moment Diagrams for Moving Placements - Design 0, Load Case 1")
     if plot:
         plt.show()
 
@@ -175,13 +185,15 @@ if __name__ == "__main__":
     print("\n")
     print("Design Iteration")
     print("----------------")
-    shear_force(True)
-    bending_moment(False)
-    compressive_stress(False)
-    tensile_stress(False)
-    shear_stress()
-    thin_plate()
-    bridge_parameters()
+    #shear_force(True)
+    #bending_moment(True)
+
+    #tensile_stress(False)
+    #compressive_stress(False)
     
+    #shear_stress()
+    #thin_plate()
+
+    #bridge_parameters()
     sorted_FOS()
     print()

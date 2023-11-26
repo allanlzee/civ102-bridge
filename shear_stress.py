@@ -3,12 +3,9 @@ import bridge_parameters as bp_
 
 # Calculate maximum shear stress from SFD
 # Txy = VQ / Ib
-max_shear_forces = sfd_.sfd_envelope()
+max_shear_forces = sfd_.sfd_envelope_all()
 
-max_shear_stress = [0, 0, 0]
-
-
-def axis_shear(glue_point: False): 
+def axis_shear(glue_point: False) -> int: 
     Q = 0
     if glue_point: 
         Q = bp_.calculate_first_moment_of_area(bp_.param, bp_.glue_location, True)
@@ -23,8 +20,7 @@ def axis_shear(glue_point: False):
     else:
         b = bp_.centroidal_axis_width
 
-    for i in range(len(max_shear_stress)):
-        max_shear_stress[i] = round((max_shear_forces[i] * Q) / (I * b), 3)
+    max_shear_stress = round((max(max_shear_forces) * Q) / (I * b), 3)
 
     return max_shear_stress
 
