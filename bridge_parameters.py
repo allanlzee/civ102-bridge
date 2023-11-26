@@ -106,14 +106,14 @@ p_10 = [ [0, 0, 0],
         [h_10 - 1.27, 140, 2* 1.27],
         ]
 
-h_11 = 140
+h_11 = 160
 p_11 = [ [0, 0, 0],
-        [(h_11 - 3 * 1.27) / 2, 1.27, 140 - 3 * 1.27],
-        [(h_11 - 3 * 1.27) / 2, 1.27, 140 - 3 * 1.27],
+        [(h_11 - 3 * 1.27) / 2, 1.27, h_11 - 3 * 1.27],
+        [(h_11 - 3 * 1.27) / 2, 1.27, h_11 - 3 * 1.27],
         [(h_11 - 3 * 1.27) + 0.635, 5.27, 1.27],
         [(h_11 - 3 * 1.27) + 0.635, 5.27, 1.27],
-        [h_11 - 1.27 - 0.635, 130, 1.27],
-        [h_11 - 0.635, 130, 1.27],
+        [h_11 - 1.27 - 0.635, 100, 1.27],
+        [h_11 - 0.635, 100, 1.27],
         ]
 
 param = p_0
@@ -125,35 +125,14 @@ for i in range(1, len(param)):
         y_top += param[i][2]
 glue_location = y_top - top_layers*1.27
 flange = (param[len(param) - 1][1] - 80)/2
-param_glue = param[0:-top_layers]
-glue_width = param_glue[-1][1]*2
+
+param_glue = param[0:len(param) - top_layers]
+
+# Note that glue width will not go all the way to the edge.
+glue_width = 6.27 * 2
+#glue_width = param_glue[-1][1]*2 - 2 * 1.27
 y_bot = 0 
 centroidal_axis_width = 2 * 1.27
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def leftover(param):
@@ -209,6 +188,12 @@ param_centroidal_axis = [[1.27 / 2, 80, 1.27],
                          [1.27 + (centroidal_axis(param) - 1.27) / 2, 1.27, centroidal_axis(param) - 1.27]
                         ]
 
+# First Moment of Area Parameters without the Bottom Layer.
+"""param_centroidal_axis = [
+                         [(centroidal_axis(param)) / 2, 1.27, centroidal_axis(param)], 
+                         [(centroidal_axis(param)) / 2, 1.27, centroidal_axis(param)]
+                        ]"""
+# ALWAYS CHANGE CENTROIDAL AXIS.
 
 def calculate_first_moment_of_area(param, axis, glue=False) -> float:     
     first_moment_of_area = 0
@@ -242,8 +227,5 @@ def calculate_first_moment_of_area(param, axis, glue=False) -> float:
     if glue: 
         shaded_centroid = centroidal_axis(param_glue) 
         first_moment_of_area *= abs(shaded_centroid - centroidal_axis(param))
-    else: 
-        shaded_centroid = centroidal_axis(param_centroidal_axis)
-        first_moment_of_area *= abs(shaded_centroid - centroidal_axis(param))
 
-    return round(first_moment_of_area, 3)
+    return first_moment_of_area

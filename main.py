@@ -160,7 +160,7 @@ def sorted_FOS():
         ("Web Thin Plate: ", fos_.fos_web),
         ("Center Thin Plate: ", fos_.fos_center),
         ("Free Edge Thin Plate: ", fos_.fos_free_edge),
-        ("Matboard Shear: ", fos_.fos_shear),
+        ("Matboard Shear (Centroidal Axis): ", fos_.fos_shear),
         ("Shear Thin Plate: ", fos_.fos_shear_buckling),
         ("Glue Shear: ", fos_.fos_glue)
     ]
@@ -172,9 +172,10 @@ def sorted_FOS():
         print(line + str(value))
 
 if __name__ == "__main__":
-    print("\n" * 10)
-
-    shear_force(False)
+    print("\n")
+    print("Design Iteration")
+    print("----------------")
+    shear_force(True)
     bending_moment(False)
     compressive_stress(False)
     tensile_stress(False)
@@ -183,3 +184,4 @@ if __name__ == "__main__":
     bridge_parameters()
     
     sorted_FOS()
+    print()
