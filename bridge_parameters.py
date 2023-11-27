@@ -130,7 +130,6 @@ param_glue = param[0:len(param) - top_layers]
 
 # Note that glue width will not go all the way to the edge.
 glue_width = 6.27 * 2
-#glue_width = param_glue[-1][1]*2 - 2 * 1.27
 y_bot = 0 
 centroidal_axis_width = 2 * 1.27
 
@@ -140,10 +139,8 @@ def leftover(param):
     for i in param:
         if i[1] != 1.27:
             sum += i[1]
-            # print(i[1])
         if i[2] != 1.27:
             sum += i[2]
-            # print(i[2])
 
     sum *= 1270
     return 826008 - sum 
@@ -188,11 +185,13 @@ param_centroidal_axis = [[1.27 / 2, 80, 1.27],
                          [1.27 + (centroidal_axis(param) - 1.27) / 2, 1.27, centroidal_axis(param) - 1.27]
                         ]
 
+"""
 # First Moment of Area Parameters without the Bottom Layer.
-"""param_centroidal_axis = [
+param_centroidal_axis = [
                          [(centroidal_axis(param)) / 2, 1.27, centroidal_axis(param)], 
                          [(centroidal_axis(param)) / 2, 1.27, centroidal_axis(param)]
-                        ]"""
+                        ]
+"""                        
 # ALWAYS CHANGE CENTROIDAL AXIS.
 
 def calculate_first_moment_of_area(param, axis, glue=False) -> float:     

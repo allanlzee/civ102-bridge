@@ -6,6 +6,7 @@ import bending_moment as bmd_
 import applied_tension as at_
 import bridge_parameters as bp_
 import safety_factor as fos_
+import capacities as cap_
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -14,37 +15,14 @@ def compressive_stress (plot):
     print("\nCOMPRESSIVE STRESS")
     compressive_stresses = ac_.calculate_compressive_stress()
 
-    """
-    for stress in range(len(compressive_stresses)):
-        leg_label = None 
-
-        match stress: 
-            case 0: 
-                leg_label = "Left Stress"
-            case 1: 
-                leg_label = "Middle Stress"
-            case 2: 
-                leg_label = "Right Stress"
-
-        plt.plot(np.array(compressive_stresses[stress]), label = leg_label)
-    """
-
     print("Maximum Compressive Stress [MPa]: " + str(compressive_stresses))
 
-    """
-    plt.legend()
-    plt.xlabel("Bridge Distance (mm)")
-    plt.ylabel("Compressive Stress (MPa)")
-    plt.title("Compressive Stress Diagrams for Left, Middle, and Right Train Placements")
-    
-    if plot:
-        plt.show()
-    """
 
 def shear_stress (): 
     print("\nSHEAR STRESS")
     print("Centroidal Axis [MPa]: " + str(ss_.axis_shear(False)))
     print("Glue Point [MPa]: " + str(ss_.axis_shear(True))) 
+
 
 def thin_plate():
     print("\nTHIN PLATE")
@@ -64,6 +42,7 @@ def shear_force (plot):
         sfd.insert(0, 0)
         plt.plot(np.array(sfd))
 
+    """
     for sfd in range(len(shear_force_diagrams)): 
         leg_label = None
         match sfd: 
@@ -78,18 +57,18 @@ def shear_force (plot):
         shear_force_diagrams[sfd].append(0)
             
         plt.plot(np.array(shear_force_diagrams[sfd]), label = leg_label, linewidth=3.0)
+    """
     
     # Plot shear force envelope. 
-    plt.plot(np.array(sfd_envelope), label="Shear Force Envelope")
+    plt.plot(np.array(sfd_envelope), label="Shear Force Envelope", linewidth=3.0)
     plt.plot(np.array([0] * (sfd_.n + 1)), color="black")
-        
     plt.legend()
-    plt.ylim(-300, 300)
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Shear Force (N)")
-    plt.title("Shear Force Diagrams for Moving Placements - Design 0, Load Case 1")
+
     if plot:
         plt.show()
+
 
 def tensile_stress(plot):
     print("\nTENSILE STRESS")
@@ -97,14 +76,6 @@ def tensile_stress(plot):
 
     print("Maximum Tensile Stress [MPa]: " + str(tensile_stress))
 
-    """
-    plt.legend()
-    plt.xlabel("Bridge Distance (mm)")
-    plt.ylabel("Tensile Stress (MPa)")
-    plt.title("Tensile Stress Diagrams for Left, Middle, and Right Train Placements")
-    if plot:
-        plt.show()
-    """
 
 def bending_moment(plot):
     print("\nBENDING MOMENT")
@@ -136,12 +107,12 @@ def bending_moment(plot):
     plt.plot(np.array([0] * (sfd_.n + 1)), color="black")
 
     plt.legend()
-    plt.ylim(100000, 0)
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Moment (Nmm)")
-    plt.title("Bending Moment Diagrams for Moving Placements - Design 0, Load Case 1")
+
     if plot:
         plt.show()
+
 
 def FOS ():
     print("\nSAFETY FACTOR")
@@ -154,6 +125,7 @@ def FOS ():
     print("Web Thin Plate Buckling: " + str(fos_.fos_web))
     print("Shear Thin Plate Buckling: " + str(fos_.fos_shear_buckling)) 
 
+
 def bridge_parameters():
     print("\nBRIDGE PARAMETERS")
     print("Leftover Matboard (mm^2): " + str(bp_.leftover(bp_.param)))
@@ -162,6 +134,7 @@ def bridge_parameters():
     print("I (mm4): " + str(bp_.second_moment_of_area(bp_.param)))
     print("Q (Centroidal Axis to Bottom) [mm3]: " + str(bp_.calculate_first_moment_of_area(bp_.param, bp_.centroidal_axis(bp_.param), False)))
     print("Q (Glue to Centroidal Axis) [mm3]: " + str(bp_.calculate_first_moment_of_area(bp_.param, bp_.glue_location, True)))
+
 
 def sorted_FOS():
     lines_with_values = [
@@ -185,15 +158,15 @@ if __name__ == "__main__":
     print("\n")
     print("Design Iteration")
     print("----------------")
-    #shear_force(True)
-    #bending_moment(True)
+    shear_force(True)
+    bending_moment(True)
 
-    #tensile_stress(False)
-    #compressive_stress(False)
+    tensile_stress(False)
+    compressive_stress(False)
     
-    #shear_stress()
-    #thin_plate()
+    shear_stress()
+    thin_plate()
 
-    #bridge_parameters()
+    bridge_parameters()
     sorted_FOS()
     print()

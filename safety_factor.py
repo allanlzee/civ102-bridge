@@ -39,9 +39,7 @@ fos_glue = round(fos_glue, 3)
 MAX_COMPRESSION = ac_.calculate_compressive_stress()
 fos_center = tp_.center() / MAX_COMPRESSION
 fos_free_edge = tp_.free_edge() / MAX_COMPRESSION
-
-web_compression = max(bmd_.bmd_envelope_all()) * (bp_.param[4][0] + bp_.param[4][2] / 2 - bp_.centroidal_axis(bp_.param)) / bp_.second_moment_of_area(bp_.param)
-fos_web = tp_.web() / web_compression
+fos_web = tp_.web() / MAX_COMPRESSION
 
 fos_shear_buckling = tp_.shear() / ss_.axis_shear(False)
 

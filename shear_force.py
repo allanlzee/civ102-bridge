@@ -8,7 +8,7 @@ start_locations = [-52, 120, 292]
 wheel = 66.666
 #wheel = 149.254
 P_train = [wheel, wheel, wheel, wheel, wheel, wheel]          # Load Case 1
-P_train = [wheel, wheel, wheel, wheel, wheel * 1.35, wheel * 1.35]        # Load Case 2
+#P_train = [wheel, wheel, wheel, wheel, wheel * 1.35, wheel * 1.35]        # Load Case 2
 
 L = 1200   # Length of Bridge 
 n = 1200    # Discretize into 1 mm segments ()
@@ -75,16 +75,16 @@ def calculate_sfd_right_middle_left():
                 case 2: 
                     right_sfd[cut_position] = shear_force 
 
-        # Add right pin reaction in the end
-        match start: 
-            case 0: 
-                left_sfd[-1] += right_pin_reaction
+    # Add right pin reaction in the end.
+    match start: 
+        case 0: 
+            left_sfd[-1] += right_pin_reaction
                     
-            case 1: 
-                middle_sfd[-1] += right_pin_reaction
+        case 1: 
+            middle_sfd[-1] += right_pin_reaction
 
-            case 2: 
-                right_sfd[-1] += right_pin_reaction
+        case 2: 
+            right_sfd[-1] += right_pin_reaction
 
     return left_sfd, middle_sfd, right_sfd
 
@@ -115,7 +115,7 @@ def calculate_sfd():
         
         # Initial shear force = left pin 
         shear_force = left_pin_reaction
-        for cut_position in range(n + 1): 
+        for cut_position in range(n - 1): 
             # If cur position is at wheel, drop down SFD by wheel force.
             for wheel in range(len(wheel_locations)):
                 if wheel_locations[wheel] == cut_position: 
@@ -128,6 +128,8 @@ def calculate_sfd():
         # Add right pin reaction in the end.
         sfd_all_locations[start + 52][-1] += right_pin_reaction
 
+    for i in range(len(sfd_all_locations)):
+        sfd_all_locations[i] = sfd_all_locations[i][:1199]
 
     return sfd_all_locations
 
@@ -145,15 +147,38 @@ def sfd_envelope():
 def sfd_envelope_all():
     shear_force_diagrams = calculate_sfd() 
     max_shear = []
+    min_shear = []
+
+    abs_total_shear = []
 
     # Find the maximum shear force at each position.
     # Note that if a shear force is negative, its absolute value should be taken.
     for col in range(len(shear_force_diagrams[0])):
         max_shear_force = 0
+        min_shear_force = 1000000000
         for row in range(len(shear_force_diagrams)): 
-            if abs(shear_force_diagrams[row][col]) > max_shear_force: 
-                max_shear_force = abs(shear_force_diagrams[row][col])
+            if shear_force_diagrams[row][col] > max_shear_force: 
+                max_shear_force = shear_force_diagrams[row][col]
+            
+            if shear_force_diagrams[row][col] < min_shear_force: 
+                min_shear_force = shear_force_diagrams[row][col]
 
         max_shear.append(max_shear_force)
+        
+        min_shear.append(min_shear_force)
 
-    return max_shear
+    for i in range(len(max_shear)): 
+        if max_shear[i] > abs(min_shear[i]):   
+            abs_total_shear.append(max_shear[i])
+        else:
+            abs_total_shear.append(min_shear[i])
+
+    abs_total_shear.insert(0, 0)
+    abs_total_shear.append(0)
+
+    return abs_total_shear[:1201]
+
+
+if __name__ == "__main__":
+    print(calculate_sfd_right_middle_left()[2])
+    print(sfd_envelope_all())

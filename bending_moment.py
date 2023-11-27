@@ -14,7 +14,7 @@ left_bmd, middle_bmd, right_bmd = [0] * (sfd.n + 1), [0] * (sfd.n + 1), [0] * (s
 def calculate_bmd(): 
     bmd = [] 
 
-    for i in range(sfd.n + 1): 
+    for i in range(len(shear_force_diagrams) + 1): 
         bmd.append([0] * (sfd.n + 1))
 
     # Calculate bending moment diagrams for each SFD. 
@@ -114,7 +114,6 @@ if __name__ == "__main__":
     plt.plot(np.array([0] * (sfd.n + 1)), color="black")
 
     plt.legend()
-    plt.ylim(100000, 0)
     plt.xlabel("Bridge Distance (mm)")
     plt.ylabel("Moment (Nmm)")
     plt.title("Bending Moment Diagrams for Moving Placements - Design 0, Load Case 1")
