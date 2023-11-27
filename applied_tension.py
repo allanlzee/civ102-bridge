@@ -1,9 +1,8 @@
-import shear_force as sfd_
+"""This file contains all code for calculating tensile stress 
+at the bottom of the cross section using Navier's equation."""
+
 import bending_moment as bmd_
 import bridge_parameters as bp_
-
-import matplotlib.pyplot as plt
-import numpy as np
 
 # Calculate applied stresses for moments using Navier's equation. 
 

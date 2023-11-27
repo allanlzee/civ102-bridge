@@ -1,10 +1,11 @@
+"""This code contains all calculations for the factor of safety.
+Matboard and glue properties for strength against shear, compression, and tension."""
+
 # Factor of Safety Calculations 
-import bending_moment as bmd_
 import applied_tension as at_
 import applied_compression as ac_
 import shear_stress as ss_
 import thin_plate as tp_
-import bridge_parameters as bp_
 
 # Tensile Stress [MPa]
 tensile_stress = at_.calculate_tensile_stress()

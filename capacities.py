@@ -1,7 +1,11 @@
 """
+This code contains all functions outputting Shear Force Capacities and
+Bending Moment Capacities. 
+
 Note that for our bridge, which does not feature cross section changes, 
 the capcities will all be straight, horizontal lines. 
 """
+
 import matplotlib.pyplot as plt 
 import numpy as np
 
@@ -24,6 +28,8 @@ max_moment = max(bmd_.bmd_envelope_all())
 
 
 def v_fail_shear(): 
+    """Plot failure by centroidal axis shearing."""
+
     global sfd 
 
     shear_sf = sf_.fos_shear 
@@ -40,6 +46,8 @@ def v_fail_shear():
 
     
 def v_fail_glue(): 
+    """Plot failure by glue shear."""
+
     global sfd 
 
     glue_sf = sf_.fos_glue
@@ -56,6 +64,8 @@ def v_fail_glue():
 
 
 def v_fail_buck(): 
+    """Plot failure by shear buckling."""
+
     global sfd 
 
     shear_buck_sf = sf_.fos_shear_buckling
@@ -73,6 +83,8 @@ def v_fail_buck():
 
 
 def m_fail_tens(): 
+    """Plot failure by tensile stress."""
+
     global bmd 
 
     tens_sf = sf_.fos_tensile 
@@ -87,6 +99,8 @@ def m_fail_tens():
 
 
 def m_fail_comp(): 
+    """Plot failure by compressive stress."""
+
     global bmd 
 
     comp_sf = sf_.fos_compressive 
@@ -101,6 +115,8 @@ def m_fail_comp():
 
 
 def m_fail_buck_center():
+    """Plot failure by center buckling."""
+
     global bmd 
 
     capacity = [max_moment * sf_.fos_center] * len(bmd[0])
@@ -113,6 +129,8 @@ def m_fail_buck_center():
 
 
 def m_fail_free_edge(): 
+    """Plot failure by free edge buckling."""
+
     capacity = [max_moment * sf_.fos_free_edge] * len(bmd[0])
 
     plt.ylim(max(capacity[0], max_moment) * 1.05, 0)
@@ -123,6 +141,8 @@ def m_fail_free_edge():
 
 
 def m_fail_web():
+    """Plot failure by web buckling."""
+
     capacity = [max_moment * sf_.fos_web] * len(bmd[0])
 
     plt.ylim(max(capacity[0], max_moment) * 1.05, 0)
@@ -133,11 +153,11 @@ def m_fail_web():
 
 
 if __name__ == "__main__": 
-    """v_fail_shear()
+    v_fail_shear()
     v_fail_glue()
     v_fail_buck()
     m_fail_tens()
-    m_fail_comp()"""
+    m_fail_comp()
     m_fail_buck_center()
-    #m_fail_free_edge()
-    #m_fail_web()
+    m_fail_free_edge()
+    m_fail_web()

@@ -50,12 +50,7 @@ def shear():
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * ((t/h)**2 + (t/a)**2), 3)
 
 def diaphrams():
-    inner_b = 80 - 2*1.27
-    inner_h = bp_.param[2][2]
-    inner_area = inner_b * inner_h
-    n_diaphrams = (bp_.leftover(bp_.param) - (bp_.leftover(bp_.param) % inner_area))/ inner_area
-
-    n_diaphrams = 10            # override
+    n_diaphrams = 10         
     a = 1270 / n_diaphrams
 
     return a

@@ -1,3 +1,6 @@
+"""This file contains all code related to the geometry of the bridge cross section, 
+left over Matboard, first and second moment of area, and centroidal axis."""
+
 # Define Bridge Parameters. 
 # xb, bft, tft 
 # xb:   Location of centroid, xb, of cross-section change (relative to bottom) (mm)
@@ -19,66 +22,80 @@ p_1 = [[0.635, 80, 1.27],
         [74.365, 6.27, 1.27],
         [74.365, 6.27, 1.27],
         [75.635, 100, 1.27],
-        [75.635 + 1.27 / 2, 100, 1.27],
+        [75.635 + 1.27, 100, 1.27]
         ]
 
-# Second Iteration: Increase length of glue tabs. 
+# Second Iteration: Increase length of glue tabs all the way to the middle. 
 p_2 = [[0.635, 80, 1.27], 
         [37.5, 1.27, 72.46],
         [37.5, 1.27, 72.46],
         [74.365, 40, 1.27],
         [74.365, 40, 1.27],
-        [75.635, 100, 1.27]
+        [75.635, 100, 1.27],
+        [75.635 + 1.27, 100, 1.27]
         ]
 
-# Third Iteration: Increase height of the bridge to 120. 
+# Third Iteration: Increase height of the bridge to 140. 
+h_3 = 140 
 p_3 = [[0.635, 80, 1.27], 
-        [60 + 1.27, 1.27, 120],
-        [60 + 1.27, 1.27, 120],
-        [1.27 + 120 + 0.635, 1.27, 1.27],
-        [1.27 + 120 + 0.635, 1.27, 1.27],
-        [1.27 + 120 + 1.27 + 0.635, 100, 1.27]
+        [(h_3 - 4 * 1.27) / 2 + 1.27, 1.27, h_3 - 4 * 1.27],
+        [(h_3 - 4 * 1.27) / 2 + 1.27, 1.27, h_3 - 4 * 1.27],
+        [h_3 - 2 * 1.27 - 0.635, 6.27, 1.27],
+        [h_3 - 2 * 1.27 - 0.635, 6.27, 1.27],
+        [h_3 - 1.27 - 0.635, 100, 1.27],
+        [h_3 - 0.635, 100, 1.27]
         ]
 
 # Fourth Iteration: Increase width of the top plate to decrease free edge buckling.
+h_4 = 140 
 p_4 = [[0.635, 80, 1.27], 
-        [60 + 1.27, 1.27, 150],
-        [60 + 1.27, 1.27, 150],
-        [1.27 + 120 + 0.635, 1.27, 1.27],
-        [1.27 + 120 + 0.635, 1.27, 1.27],
-        [1.27 + 120 + 1.27 + 0.635, 120, 1.27]
+        [(h_4 - 4 * 1.27) / 2 + 1.27, 1.27, h_4 - 4 * 1.27],
+        [(h_4 - 4 * 1.27) / 2 + 1.27, 1.27, h_4 - 4 * 1.27],
+        [h_4 - 2 * 1.27 - 0.635, 6.27, 1.27],
+        [h_4 - 2 * 1.27 - 0.635, 6.27, 1.27],
+        [h_4 - 1.27 - 0.635, 120, 1.27],
+        [h_4 - 0.635, 120, 1.27]
         ]
 
-# Fifth Iteration: Limiting free edge buckling. 
-p_5 = [[0.635, 80, 1.27], 
-        [60 + 1.27, 1.27, 180],
-        [60 + 1.27, 1.27, 180],
-        [1.27 + 120 + 0.635, 5, 1.27],
-        [1.27 + 120 + 0.635, 5, 1.27],
-        [1.27 + 120 + 1.27 + 0.635, 140, 1.27]
-        ]
+# Fifth Iteration: Adding a bottom layer. # TODO: change code for centroidal axis.
+h_5 = 140
+p_5 = [[0.635, 80, 1.27],
+       [0.635 + 1.27, 80, 1.27], 
+       [(h_5 - 5 * 1.27) / 2 + 2 * 1.27, 1.27, h_5 - 5 * 1.27],
+       [(h_5 - 5 * 1.27) / 2 + 2 * 1.27, 1.27, h_5 - 5 * 1.27],
+       [h_5 - 2 * 1.27 - 0.635, 6.27, 1.27],
+       [h_5 - 2 * 1.27 - 0.635, 6.27, 1.27],
+       [h_5 - 1.27 - 0.635, 100, 1.27],
+       [h_5 - 0.635, 100, 1.27]
+      ]
 
-# Sixth Iteration: Failure by compression counteracted by raising centroidal axis.
-#
+# Sixth Iteration: Failure by compression counteracted by raising centroidal axis. 
+# TODO: change top layer number to 3
+h_6 = 140
 p_6 = [[0.635, 80, 1.27], 
-        [60 + 1.27, 1.27, 180],
-        [60 + 1.27, 1.27, 180],
-        [1.27 + 120 + 0.635, 5, 1.27],
-        [1.27 + 120 + 0.635, 5, 1.27],
-        [1.27 + 120 + 1.27 + 0.635, 160, 1.27]
+        [(h_6 - 5 * 1.27) / 2 + 1.27, 1.27, h_6 - 5 * 1.27],
+        [(h_6 - 5 * 1.27) / 2 + 1.27, 1.27, h_6 - 5 * 1.27],
+        [h_6 - 3 * 1.27 - 0.635, 6.27, 1.27],
+        [h_6 - 3 * 1.27 - 0.635, 6.27, 1.27],
+        [h_6 - 2 * 1.27 - 0.635, 100, 1.27],
+        [h_6 - 1.27 - 0.635, 100, 1.27], 
+        [h_6 - 0.635, 100, 1.27]
         ]
 
 # ---------
 
-# Seventh Iteration: Maximizing the height but only keeping one top layer.
-p_7 = [[0.635, 80, 1.27], 
-        [(200 - 3 * 1.27) / 2 + 1.27, 1.27, 200 - 3 * 1.27],
-        [(200 - 3 * 1.27) / 2 + 1.27, 1.27, 200 - 3 * 1.27],
-        [(200 - 3 * 1.27) + 0.635, 5, 1.27],
-        [(200 - 3 * 1.27) + 0.635, 5, 1.27],
-        [200 - 0.635, 140, 1.27]
+# Seventh Iteration: Taking off the bottom layer.
+# TODO: change centroidal axis to bottomless layer.
+p_7 = [[0, 0, 0], 
+        [137.46 / 2 + 1.27, 1.27, 137.46],
+        [137.46 / 2 + 1.27, 1.27, 137.46],
+        [140 - 2 * 1.27 - 0.635, 6.27, 1.27],
+        [140 - 2 * 1.27 - 0.635, 6.27, 1.27],
+        [140 - 1.27 - 0.635, 100, 1.27],
+        [140 - 0.635, 100, 1.27]
         ]
 
+"""
 # Eighth Iteration: Optimize for height to fix FOS for shear thin plate.
 p_8 = [[0.635, 80, 1.27], 
         [(180 - 3 * 1.27) / 2 + 1.27, 1.27, 180 - 3 * 1.27],
@@ -105,20 +122,21 @@ p_10 = [ [0, 0, 0],
         [(h_10 - 3 * 1.27) + 0.635, 5, 1.27],
         [h_10 - 1.27, 140, 2* 1.27],
         ]
+"""
 
-h_11 = 160
-p_11 = [ [0, 0, 0],
-        [(h_11 - 3 * 1.27) / 2, 1.27, h_11 - 3 * 1.27],
-        [(h_11 - 3 * 1.27) / 2, 1.27, h_11 - 3 * 1.27],
-        [(h_11 - 3 * 1.27) + 0.635, 5.27, 1.27],
-        [(h_11 - 3 * 1.27) + 0.635, 5.27, 1.27],
-        [h_11 - 1.27 - 0.635, 100, 1.27],
-        [h_11 - 0.635, 100, 1.27],
+h_8 = 160
+final_design = [[0, 0, 0],
+        [(h_8 - 3 * 1.27) / 2, 1.27, h_8 - 3 * 1.27],
+        [(h_8 - 3 * 1.27) / 2, 1.27, h_8 - 3 * 1.27],
+        [(h_8 - 3 * 1.27) + 0.635, 6.27, 1.27],
+        [(h_8 - 3 * 1.27) + 0.635, 6.27, 1.27],
+        [h_8 - 1.27 - 0.635, 100, 1.27],
+        [h_8 - 0.635, 100, 1.27],
         ]
 
-param = p_0
+param = final_design
 
-top_layers = 1
+top_layers = 2
 y_top = param[0][2]
 for i in range(1, len(param)):
     if param[i][0] != param[i-1][0]:
@@ -134,7 +152,8 @@ y_bot = 0
 centroidal_axis_width = 2 * 1.27
 
 
-def leftover(param):
+def leftover(param) -> float:
+    """Return leftover matboard in mm2."""
     sum = 0
     for i in param:
         if i[1] != 1.27:
@@ -180,21 +199,30 @@ def second_moment_of_area(param) -> float:
 
 # First Moment of Area Parameters for Centroidal Axis. 
 # Take relative position from the bottom surface of the bridge. 
-param_centroidal_axis = [[1.27 / 2, 80, 1.27], 
+
+# For one bottom layer. 
+param_centroidal_axis_one_bottom_layer = [[0.635, 80, 1.27],
                          [1.27 + (centroidal_axis(param) - 1.27) / 2, 1.27, centroidal_axis(param) - 1.27], 
                          [1.27 + (centroidal_axis(param) - 1.27) / 2, 1.27, centroidal_axis(param) - 1.27]
                         ]
 
-"""
+# For two bottom layers.
+param_centroidal_axis_two_bottom_layers = [[0.635, 80, 1.27],
+                         [1.27 + 1.27 / 2, 80, 1.27], 
+                         [1.27 + 1.27 + (centroidal_axis(param) - 2 * 1.27) / 2, 1.27, centroidal_axis(param) - 2 * 1.27], 
+                         [1.27 + 1.27 + (centroidal_axis(param) - 2 * 1.27) / 2, 1.27, centroidal_axis(param) - 2 * 1.27]
+                        ]
+
 # First Moment of Area Parameters without the Bottom Layer.
-param_centroidal_axis = [
+param_centroidal_axis_no_bottom_layer = [
                          [(centroidal_axis(param)) / 2, 1.27, centroidal_axis(param)], 
                          [(centroidal_axis(param)) / 2, 1.27, centroidal_axis(param)]
-                        ]
-"""                        
-# ALWAYS CHANGE CENTROIDAL AXIS.
+                        ]                
 
-def calculate_first_moment_of_area(param, axis, glue=False) -> float:     
+
+def calculate_first_moment_of_area(param, axis, glue=False) -> float:   
+    """Calculate the first moment of area for the centroidal axis and glue axis.""" 
+
     first_moment_of_area = 0
 
     # Keep track of the last cross section's height. 
@@ -227,7 +255,7 @@ def calculate_first_moment_of_area(param, axis, glue=False) -> float:
         shaded_centroid = centroidal_axis(param_glue) 
         first_moment_of_area *= abs(shaded_centroid - centroidal_axis(param))
     else: 
-        shaded_centroid = centroidal_axis(param_centroidal_axis)
+        shaded_centroid = centroidal_axis(param_centroidal_axis_no_bottom_layer)
         first_moment_of_area *= abs(shaded_centroid - centroidal_axis(param))
 
     return first_moment_of_area

@@ -1,3 +1,6 @@
+"""This code contains functions for shear force diagrams.
+This is where load cases and train weight is recorded for the entire code architecture."""
+
 import numpy as np
 import copy
 
@@ -5,10 +8,10 @@ import copy
 x_train = [52, 228, 392, 568, 732, 908]     # Train Load Locations (mm)
 start_locations = [-52, 120, 292]
 #start_locations = [0 + 35, 120 + 35, 240 + 35]
-wheel = 66.666
-#wheel = 149.254
+# wheel = 66.666
+wheel = 149.254
 P_train = [wheel, wheel, wheel, wheel, wheel, wheel]          # Load Case 1
-#P_train = [wheel, wheel, wheel, wheel, wheel * 1.35, wheel * 1.35]        # Load Case 2
+P_train = [wheel, wheel, wheel, wheel, wheel * 1.35, wheel * 1.35]        # Load Case 2
 
 L = 1200   # Length of Bridge 
 n = 1200    # Discretize into 1 mm segments ()
@@ -32,6 +35,8 @@ for loc in range(292 + 52 + 1):
 
 
 def calculate_sfd_right_middle_left():
+    """Calculate SFDs at the left, middle, and right locations of the train."""
+
     global left_sfd 
     global middle_sfd 
     global right_sfd 
@@ -90,6 +95,8 @@ def calculate_sfd_right_middle_left():
 
 
 def calculate_sfd():
+    """Calculate SFDs for every location on the bridge."""
+
     global left_sfd 
     global middle_sfd 
     global right_sfd 
@@ -135,6 +142,8 @@ def calculate_sfd():
 
 
 def sfd_envelope(): 
+    """Calculate maximum shear at the left, middle, and right locations of the train."""
+
     shear_force_diagrams = calculate_sfd_right_middle_left() 
 
     left_max_shear = max(max(shear_force_diagrams[0]), abs(min(shear_force_diagrams[0])))
@@ -145,6 +154,8 @@ def sfd_envelope():
 
 
 def sfd_envelope_all():
+    """Calculate maximum shear for every location of the bridge."""
+
     shear_force_diagrams = calculate_sfd() 
     max_shear = []
     min_shear = []

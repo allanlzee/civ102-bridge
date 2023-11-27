@@ -1,3 +1,6 @@
+"""The file contains all code for calculating BMDs for all locations
+on the bridge. Assume the train wheels are all fully on the bridge."""
+
 import numpy as np
 import matplotlib.pyplot as plt 
 from scipy.integrate import trapz 
@@ -11,7 +14,9 @@ shear_force_diagrams = sfd.calculate_sfd()
 left_bmd, middle_bmd, right_bmd = [0] * (sfd.n + 1), [0] * (sfd.n + 1), [0] * (sfd.n + 1)
 
 
-def calculate_bmd(): 
+def calculate_bmd() -> list: 
+    """Calculate the bending moment diagrams based on the area underneath the 
+    shear force diagrams. Return as a two dimensional list."""
     bmd = [] 
 
     for i in range(len(shear_force_diagrams) + 1): 
@@ -34,7 +39,9 @@ def calculate_bmd():
     return bmd
 
 
-def calculate_bmd_right_middle_left(): 
+def calculate_bmd_right_middle_left() -> list: 
+    """Return BMDs for the train on the left, middle, and right."""
+
     # Calculate bending moment diagrams for each SFD. 
     for i in range(sfd.n_train): 
         sfd_values = shear_force_diagrams_right_middle_left[i]
@@ -58,7 +65,7 @@ def calculate_bmd_right_middle_left():
     return [left_bmd, middle_bmd, right_bmd]
 
 
-def bmd_envelope(): 
+def bmd_envelope() -> list: 
     bending_moment_diagrams = calculate_bmd_right_middle_left() 
 
     left_max_moment = max(bending_moment_diagrams[0])
@@ -68,7 +75,10 @@ def bmd_envelope():
     return left_max_moment, middle_max_moment, right_max_moment
 
 
-def bmd_envelope_all(): 
+def bmd_envelope_all() -> list: 
+    """Return the highest bending moment at each position on the bridge out of
+    all possible locations of the train."""
+    
     bending_moment_diagrams = calculate_bmd() 
     max_moment = []
 
