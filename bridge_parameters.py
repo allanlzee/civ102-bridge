@@ -1,3 +1,6 @@
+"""This file contains all code related to the geometry of the bridge cross section, 
+left over Matboard, first and second moment of area, and centroidal axis."""
+
 # Define Bridge Parameters. 
 # xb, bft, tft 
 # xb:   Location of centroid, xb, of cross-section change (relative to bottom) (mm)
@@ -13,83 +16,67 @@ p_0 = [[0, 80, 1.27],
         ]
 
 # First Iteration: Adding matboard layer to the top to reduce compressive stress. 
-p_1 = [[0, 80, 1.27], 
-        [0, 1.27, 72.46],
-        [1, 1.27, 72.46],
-        [0, 6.27, 1.27],
-        [1, 6.27, 1.27],
-        [0, 100, 1.27],
-        [0, 100, 1.27],
+p_1 = [[0.635, 80, 1.27], 
+        [37.5, 1.27, 72.46],
+        [37.5, 1.27, 72.46],
+        [74.365, 6.27, 1.27],
+        [74.365, 6.27, 1.27],
+        [75.635, 100, 1.27],
+        [75.635 + 1.27, 100, 1.27]
         ]
 
 # Second Iteration: Increase length of glue tabs. 
-p_2 = [[0, 80, 1.27], 
-        [0, 1.27, 72.46],
-        [1, 1.27, 72.46],
-        [0, 40, 1.27],
-        [1, 40, 1.27],
-        [0, 100, 1.27]
+p_2 = [[0.635, 80, 1.27], 
+        [37.5, 1.27, 72.46],
+        [37.5, 1.27, 72.46],
+        [74.365, 40, 1.27],
+        [74.365, 40, 1.27],
+        [75.635, 100, 1.27]
         ]
 
 # Third Iteration: Increase height of the bridge to 120. 
-p_3 = [[0, 80, 1.27], 
-        [0, 1.27, 120],
-        [1, 1.27, 120],
-        [0, 1.27, 1.27],
-        [1, 1.27, 1.27],
-        [0, 100, 1.27]
+p_3 = [[0.635, 80, 1.27], 
+        [60 + 1.27, 1.27, 120],
+        [60 + 1.27, 1.27, 120],
+        [1.27 + 120 + 0.635, 1.27, 1.27],
+        [1.27 + 120 + 0.635, 1.27, 1.27],
+        [1.27 + 120 + 1.27 + 0.635, 100, 1.27]
         ]
 
-# Fourth Iteration: Increase width of the flange to decrease free edge buckling.
-p_4 = [[0, 80, 1.27], 
-        [0, 1.27, 150],
-        [1, 1.27, 150],
-        [0, 1.27, 1.27],
-        [1, 1.27, 1.27],
-        [0, 120, 1.27]
+# Fourth Iteration: Increase width of the top plate to decrease free edge buckling.
+p_4 = [[0.635, 80, 1.27], 
+        [60 + 1.27, 1.27, 150],
+        [60 + 1.27, 1.27, 150],
+        [1.27 + 120 + 0.635, 1.27, 1.27],
+        [1.27 + 120 + 0.635, 1.27, 1.27],
+        [1.27 + 120 + 1.27 + 0.635, 120, 1.27]
         ]
 
 # Fifth Iteration: Limiting free edge buckling. 
-p_5 = [[0, 80, 1.27], 
-        [0, 1.27, 200 - 3 * 1.27],
-        [1, 1.27, 200 - 3 * 1.27],
-        [0, 5, 1.27],
-        [1, 5, 1.27], #increased glue tab
-        [0, 160, 1.27]
+p_5 = [[0.635, 80, 1.27], 
+        [60 + 1.27, 1.27, 180],
+        [60 + 1.27, 1.27, 180],
+        [1.27 + 120 + 0.635, 5, 1.27],
+        [1.27 + 120 + 0.635, 5, 1.27],
+        [1.27 + 120 + 1.27 + 0.635, 140, 1.27]
         ]
 
 # Sixth Iteration: Failure by compression counteracted by raising centroidal axis.
-p_6 = [[0, 80, 1.27], 
-        [0, 1.27, 160],
-        [1, 1.27, 160],
-        [0, 5, 1.27],
-        [1, 5, 1.27],
-        [0, 160, 1.27]
-        ]
-
-# Seventh: Take the base off
-p_7 = [ [0, 0, 0],
-        [0, 1.27, 200 - 3 * 1.27],
-        [1, 1.27, 200 - 3 * 1.27],
-        [0, 5, 1.27],
-        [1, 5, 1.27], #increased glue tab
-        [0, 160, 1.27]
+p_6 = [[0.635, 80, 1.27], 
+        [60 + 1.27, 1.27, 180],
+        [60 + 1.27, 1.27, 180],
+        [1.27 + 120 + 0.635, 5, 1.27],
+        [1.27 + 120 + 0.635, 5, 1.27],
+        [1.27 + 120 + 1.27 + 0.635, 160, 1.27]
         ]
 
 # ---------
 
-param = p_7
-
-#----------
 
 
-running_height = 0
-for i in range (len(param)):
-    if param[i][0] == 1:
-        param[i][0] = running_height - param[i-1][2]/2
-    else:
-        param[i][0] = running_height + param[i][2]/2
-        running_height += param[i][2]
+
+param = p_6
+
 top_layers = 1
 y_top = param[0][2]
 for i in range(1, len(param)):
@@ -97,10 +84,15 @@ for i in range(1, len(param)):
         y_top += param[i][2]
 glue_location = y_top - top_layers*1.27
 flange = (param[len(param) - 1][1] - 80)/2
-param_glue = param[0:-top_layers]
-glue_width = param_glue[-1][1]*2
+
+param_glue = param[0:len(param) - top_layers]
+
+# Note that glue width will not go all the way to the edge.
+glue_width = 6.27 * 2
 y_bot = 0 
 centroidal_axis_width = 2 * 1.27
+
+
 
 
 
@@ -131,10 +123,8 @@ def leftover(param):
     for i in param:
         if i[1] != 1.27:
             sum += i[1]
-            # print(i[1])
         if i[2] != 1.27:
             sum += i[2]
-            # print(i[2])
 
     sum *= 1270
     return 826008 - sum 
@@ -174,13 +164,30 @@ def second_moment_of_area(param) -> float:
 
 # First Moment of Area Parameters for Centroidal Axis. 
 # Take relative position from the bottom surface of the bridge. 
-param_centroidal_axis = [[1.27 / 2, 80, 1.27], 
+
+# For one bottom layer. 
+param_centroidal_axis_one_bottom_layer = [[0.635, 80, 1.27],
                          [1.27 + (centroidal_axis(param) - 1.27) / 2, 1.27, centroidal_axis(param) - 1.27], 
                          [1.27 + (centroidal_axis(param) - 1.27) / 2, 1.27, centroidal_axis(param) - 1.27]
                         ]
 
+# For two bottom layers.
+param_centroidal_axis_two_bottom_layers = [[0.635, 80, 1.27],
+                         [1.27 + 1.27 / 2, 80, 1.27], 
+                         [1.27 + 1.27 + (centroidal_axis(param) - 2 * 1.27) / 2, 1.27, centroidal_axis(param) - 2 * 1.27], 
+                         [1.27 + 1.27 + (centroidal_axis(param) - 2 * 1.27) / 2, 1.27, centroidal_axis(param) - 2 * 1.27]
+                        ]
 
-def calculate_first_moment_of_area(param, axis, glue=False) -> float:     
+# First Moment of Area Parameters without the Bottom Layer.
+param_centroidal_axis_no_bottom_layer = [
+                         [(centroidal_axis(param)) / 2, 1.27, centroidal_axis(param)], 
+                         [(centroidal_axis(param)) / 2, 1.27, centroidal_axis(param)]
+                        ]                
+
+
+def calculate_first_moment_of_area(param, axis, glue=False) -> float:   
+    """Calculate the first moment of area for the centroidal axis and glue axis.""" 
+
     first_moment_of_area = 0
 
     # Keep track of the last cross section's height. 
@@ -213,7 +220,7 @@ def calculate_first_moment_of_area(param, axis, glue=False) -> float:
         shaded_centroid = centroidal_axis(param_glue) 
         first_moment_of_area *= abs(shaded_centroid - centroidal_axis(param))
     else: 
-        shaded_centroid = centroidal_axis(param_centroidal_axis)
+        shaded_centroid = centroidal_axis(param_centroidal_axis_no_bottom_layer)
         first_moment_of_area *= abs(shaded_centroid - centroidal_axis(param))
 
-    return round(first_moment_of_area, 3)
+    return first_moment_of_area
