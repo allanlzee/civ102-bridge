@@ -2,13 +2,13 @@ import bridge_parameters as bp_
 
 import numpy as np
 
-# matboard params
+# Matboard properties.
 thickness = 1.27          # mm
 E = 4000                  # MPa
 poisson = 0.2             # unitles
 flange_width = bp_.flange         # mm
 
-# Working
+
 def center():
     global thickness, E, poisson
     k = 4
@@ -18,7 +18,7 @@ def center():
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
 
-# Working
+
 def free_edge():
     global thickness, E, poisson
     k = 0.425
@@ -28,7 +28,7 @@ def free_edge():
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
 
-# WORKING
+
 def web():
     global thickness, E, poisson
     k = 6
@@ -37,6 +37,7 @@ def web():
     b = 1.27 + bp_.param[1][2] - bp_.centroidal_axis(bp_.param)
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * (t/b)**2, 3)
+
 
 def shear():
     global thickness, E, poisson
@@ -48,6 +49,7 @@ def shear():
     a = diaphrams()
 
     return round((k * np.pi**2 * E ) / (12*(1-poisson**2)) * ((t/h)**2 + (t/a)**2), 3)
+
 
 def diaphrams():
     n_diaphrams = 10         

@@ -70,11 +70,6 @@ p_6 = [[0.635, 80, 1.27],
         [1.27 + 120 + 1.27 + 0.635, 160, 1.27]
         ]
 
-# ---------
-
-
-
-
 param = p_6
 
 top_layers = 1
@@ -91,31 +86,6 @@ param_glue = param[0:len(param) - top_layers]
 glue_width = 6.27 * 2
 y_bot = 0 
 centroidal_axis_width = 2 * 1.27
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def leftover(param):

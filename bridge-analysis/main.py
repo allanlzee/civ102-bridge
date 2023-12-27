@@ -34,7 +34,7 @@ def thin_plate():
     """Calculate thin plate buckling for all four cases."""
 
     print("\nTHIN PLATE")
-    print("Four restrianed (MPa): " + str(tp_.center()))
+    print("Four restrained (MPa): " + str(tp_.center()))
     print("Free edge (MPa): " + str(tp_.free_edge()))
     print("Web (MPa): " + str(tp_.web()))
     print("Shear (MPa): " + str(tp_.shear()))
@@ -171,8 +171,8 @@ if __name__ == "__main__":
     print("\n")
     print("Design Iteration")
     print("----------------")
-    shear_force(False)
-    bending_moment(False)
+    shear_force(True)
+    bending_moment(True)
 
     tensile_stress()
     compressive_stress()

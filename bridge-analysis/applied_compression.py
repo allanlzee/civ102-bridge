@@ -12,8 +12,6 @@ import numpy as np
 
 # Beam failure resulting from compression (bottom surface to centroidal axis). 
 def calculate_compressive_stress() -> float: 
-    # left_compression, middle_compression, right_compression = [0] * (sfd_.n + 1), [0] * (sfd_.n + 1), [0] * (sfd_.n + 1)
-
     y = bp_.y_top - bp_.centroidal_axis(bp_.param) 
     I = bp_.second_moment_of_area(bp_.param)
     max_moment = max(bmd_.bmd_envelope_all())
